@@ -102,30 +102,16 @@ public class BSplineDrawer : MonoBehaviour
 
     public void OnBSPointIDragStarted(int idx)
     {
-
         curveRegenStartOpt = MathUtil.mod(idx - 2, bsPointGen.bSplinePoints.Count);
-        //var curveRegenEndIncl = MathUtil.mod(idx + 2, bsPointGen.bSplinePoints.Count);
-
-        //curveRegenRange = (curveRegenStartIncl, curveRegenEndIncl);
 
 
         sPointRegenStartOpt = MathUtil.mod(idx - 1, bsPointGen.bSplinePoints.Count);
-        //var sPointEndIncl = MathUtil.mod(idx + 1, bsPointGen.bSplinePoints.Count);
-        //sPointRegenRange = (sPointStartIncl, sPointEndIncl);
-
-        Debug.Log("we mouse downing brah");
-        Debug.Log($"idx {idx}, curveStart {curveRegenStartOpt.Value}, sPointStart {sPointRegenStartOpt.Value}");
-
-
 
         pointBeingDragged = true;
     }
 
     public void OnBSPointIDragEnded(int idx)
     {
-        Debug.Log($"we mouse uping brah: {idx}");
-
-
         pointBeingDragged = false;
 
         curveRegenStartOpt = Option<int>.None;
