@@ -46,15 +46,17 @@ public class BSplinePoint : MonoBehaviour
     private void OnMouseDown()
     {
         mZCoord = Camera.main.ScreenToWorldPoint(transform.position).z;
-        mOffset = transform.position - GetMouseWorldPos();
+        mOffset = transform.position - GetMouseWorldPosClamped();
 
         bsPointIDragStarted.Raise(Index);
     }
 
-    private Vector3 GetMouseWorldPos()
+    private Vector3 GetMouseWorldPosClamped()
     {
         var mousePoint = Input.mousePosition;
 
+        mousePoint.x = Mathf.Clamp(mousePoint.x, 20, Camera.main.pixelWidth - 20);
+        mousePoint.y = Mathf.Clamp(mousePoint.y, 20, Camera.main.pixelHeight - 20);
         mousePoint.z = mZCoord;
 
         return Camera.main.ScreenToWorldPoint(mousePoint);
@@ -62,7 +64,7 @@ public class BSplinePoint : MonoBehaviour
 
     private void OnMouseDrag()
     {
-        transform.position = GetMouseWorldPos() + mOffset;
+        transform.position = GetMouseWorldPosClamped() + mOffset;
     }
 
     private void OnMouseUp()

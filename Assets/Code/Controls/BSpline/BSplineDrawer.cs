@@ -1,4 +1,5 @@
 ﻿using KammBase;
+using ScriptableObjectArchitecture;
 using Shapes;
 using System;
 using System.Collections;
@@ -17,6 +18,8 @@ public class BSplineDrawer : MonoBehaviour
     [SerializeField] private List<Vector2> pPoints;
 
     [SerializeField] private BSplinePointGenerator bsPointGen;
+
+    [SerializeField] private GameEvent bSplineCompletedEvent;
     
     private bool pointBeingDragged;
 
@@ -37,26 +40,6 @@ public class BSplineDrawer : MonoBehaviour
         for (var i = 0; i < sPoints.Count; i++)
         {
             SetCurvePointsAt(i);
-            /*
-            for (var s = 0; s < numSamplePointsPerCurve; s++)
-            {
-                var t = ((float)s) / numSamplePointsPerCurve;
-
-                var pInitial = sPoints[i];
-                var pFinal = i == sPoints.Count - 1 
-                    ? sPoints[0]
-                    : sPoints[i + 1];
-
-                var pControl1 = pPoints[2 * i];
-                var pControl2 = pPoints[2 * i + 1];
-
-                var bT = Mathf.Pow(1 - t, 3) * pInitial
-                    + 3 * Mathf.Pow(1 - t, 2) * t * pControl1
-                    + 3 * (1 - t) * t * t * pControl2
-                    + t * t * t * pFinal;
-
-                polyLine.SetPointPosition(numSamplePointsPerCurve * i + s, bT);
-            }*/
         }
     }
 
@@ -144,6 +127,8 @@ public class BSplineDrawer : MonoBehaviour
         GenerateSPoints();
 
         GeneratePolyline();
+
+        bSplineCompletedEvent.Raise();
     }
 
     // Update is called once per frame
@@ -193,17 +178,19 @@ public class BSplineDrawer : MonoBehaviour
 
     private void SetCurvePointsAt(int idx)
     {
+
+        var pInitial = sPoints[idx];
+        var pFinal = idx == sPoints.Count - 1
+            ? sPoints[0]
+            : sPoints[idx + 1];
+
+        var pControl1 = pPoints[2 * idx];
+        var pControl2 = pPoints[2 * idx + 1];
+
         for (var s = 0; s < numSamplePointsPerCurve; s++)
         {
             var t = ((float)s) / numSamplePointsPerCurve;
 
-            var pInitial = sPoints[idx];
-            var pFinal = idx == sPoints.Count - 1
-                ? sPoints[0]
-                : sPoints[idx + 1];
-
-            var pControl1 = pPoints[2 * idx];
-            var pControl2 = pPoints[2 * idx + 1];
 
             var bT = Mathf.Pow(1 - t, 3) * pInitial
                 + 3 * Mathf.Pow(1 - t, 2) * t * pControl1
@@ -212,5 +199,33 @@ public class BSplineDrawer : MonoBehaviour
 
             polyLine.SetPointPosition(numSamplePointsPerCurve * idx + s, bT);
         }
+    }
+    public Vector2 GetPointAtT(float t)
+    {
+        t = Mathf.Clamp(t, 0, 1);
+
+        var curveToUse = (int)(bsPointGen.bSplinePoints.Count * t);
+
+        var curveTStart = (curveToUse + 0f) / bsPointGen.bSplinePoints.Count;
+        var curveTEnd = (curveToUse + 1f) / bsPointGen.bSplinePoints.Count;
+
+        var localT = (t - curveTStart) / (curveTEnd - curveTStart);
+        
+
+        // duplicated code... consider not doing that...
+        var pInitial = sPoints[curveToUse];
+        var pFinal = curveToUse == sPoints.Count - 1
+            ? sPoints[0]
+            : sPoints[curveToUse + 1];
+
+        var pControl1 = pPoints[2 * curveToUse];
+        var pControl2 = pPoints[2 * curveToUse + 1];
+
+        var point = Mathf.Pow(1 - localT, 3) * pInitial
+                + 3 * Mathf.Pow(1 - localT, 2) * localT * pControl1
+                + 3 * (1 - localT) * localT * localT * pControl2
+                + localT * localT * localT * pFinal;
+
+        return point;
     }
 }
