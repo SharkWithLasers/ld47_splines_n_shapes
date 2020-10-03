@@ -6,7 +6,7 @@ InputManager:
   serializedVersion: 2
   m_Axes:
   - serializedVersion: 3
-    m_Name: Horizontal_WASD
+    m_Name: Horizontal_Arrows
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: left
@@ -22,7 +22,7 @@ InputManager:
     axis: 0
     joyNum: 0
   - serializedVersion: 3
-    m_Name: Vertical_WASD
+    m_Name: Vertical_Arrows
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: down
@@ -38,7 +38,7 @@ InputManager:
     axis: 0
     joyNum: 0
   - serializedVersion: 3
-    m_Name: Horizontal_Arrows
+    m_Name: Horizontal_WASD
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: a
@@ -54,7 +54,7 @@ InputManager:
     axis: 0
     joyNum: 0
   - serializedVersion: 3
-    m_Name: Vertical_Arrows
+    m_Name: Vertical_WASD
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: s
