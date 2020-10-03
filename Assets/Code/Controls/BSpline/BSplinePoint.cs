@@ -1,8 +1,4 @@
 ﻿using ScriptableObjectArchitecture;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
@@ -18,7 +14,6 @@ public class BSplinePoint : MonoBehaviour
 
     [SerializeField] private IntGameEvent bsPointIDragEnded;
 
-
     // Start is called before the first frame update
     void Start()
     {
@@ -28,7 +23,6 @@ public class BSplinePoint : MonoBehaviour
     public void SetIndex(int index)
     {
         Index = index;
-        Debug.Log($"index set to {index}");
     }
 
     private void OnMouseEnter()
@@ -53,9 +47,6 @@ public class BSplinePoint : MonoBehaviour
     {
         mZCoord = Camera.main.ScreenToWorldPoint(transform.position).z;
         mOffset = transform.position - GetMouseWorldPos();
-
-        Debug.Log($"mouse down raising for set to {Index}");
-
 
         bsPointIDragStarted.Raise(Index);
     }
