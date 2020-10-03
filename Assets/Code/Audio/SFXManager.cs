@@ -16,24 +16,7 @@ public class SFXManager : MonoBehaviour
     private int totalNumControlPoints => bSplinePointGenerator.bSplinePoints.Count;
 
     [SerializeField]
-    // 1, 4
     private List<int> cpSemitones = new List<int> { 0, 2, 4, 5, 7 };
-
-    [SerializeField]
-    // 1, 4
-    private List<int> cpTwoPointSemis = new List<int> { 0, 5 };
-
-    [SerializeField]
-    //1, 4, 5
-    private List<int> cpThreePointSemis = new List<int> { 0, 5, 7 };
-
-    [SerializeField]
-    //1, 2, 4, 5
-    private List<int> cpFourPointSemis = new List<int> { 0, 2, 5, 7 };
-
-    [SerializeField]
-    // 1, 2, 3, 5, 6 ...
-    private List<int> cpFivePointSemis = new List<int> { 0, 2, 4, 7, 9 };
     private int semitoneDiffCpMouseDown = -1;
 
 
