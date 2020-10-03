@@ -20,11 +20,13 @@ public class BSplineDrawer : MonoBehaviour
     [SerializeField] private BSplinePointGenerator bsPointGen;
 
     [SerializeField] private GameEvent bSplineCompletedEvent;
+
+    [Range(0, 1)]
+    [SerializeField] private float startingTrailOpacity;
+
+    [SerializeField] private ColorPalette colorPalette;
     
     private bool pointBeingDragged;
-
-    //private Option<(int, int)> curveRegenRange = Option<(int, int)>.None;
-    //private Option<(int, int)> sPointRegenRange = Option<(int, int)>.None;
 
     private Option<int> curveRegenStartOpt = Option<int>.None;
     private Option<int> sPointRegenStartOpt = Option<int>.None;
@@ -105,13 +107,26 @@ public class BSplineDrawer : MonoBehaviour
     {
         polyLine.SetPoints(new List<Vector3>());
 
-        numTotalPoints = (numSamplePointsPerCurve * bSplinePoints.Count);
-        //numTotalPoints = (numSamplePointsPerCurve * bPointsLoop.Count) + 1;
+        //numTotalPoints = (numSamplePointsPerCurve * bSplinePoints.Count);
+        numTotalPoints = (numSamplePointsPerCurve * bSplinePoints.Count) + 1;
 
         for (var i = 0; i < numTotalPoints; i++)
         {
             polyLine.AddPoint(new Vector3(0, 0));
-            polyLine.SetPointColor(i, new Color(1, 1, 1, 1 - ((float)i) / numTotalPoints));
+
+            /*
+            var color = Color.Lerp(
+                colorPalette.TrailStart,
+                colorPalette.TrailEnd,
+                ((float)i) / numTotalPoints);*/
+
+            var t = ((float)i) / numTotalPoints;
+
+            polyLine.SetPointColor(i, colorPalette.GetColorAtT(t));
+
+            //polyLine.SetPointColor(i, color);
+
+            //polyLine.SetPointColor(i, new Color(1, 1, 1, (1 - ((float)i) / numTotalPoints)) * startingTrailOpacity);
         }
 
         sPoints = new List<Vector2>();
@@ -198,6 +213,12 @@ public class BSplineDrawer : MonoBehaviour
                 + t * t * t * pFinal;
 
             polyLine.SetPointPosition(numSamplePointsPerCurve * idx + s, bT);
+        }
+
+        // close da loop yo
+        if (idx == sPoints.Count - 1)
+        {
+            polyLine.SetPointPosition(numTotalPoints - 1, pFinal);
         }
     }
     public Vector2 GetPointAtT(float t)

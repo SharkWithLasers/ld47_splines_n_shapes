@@ -245,12 +245,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a4f4379bf1ca8340a9a3f25ba48e01f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numControlPoints: 4
+  numControlPoints: 6
   initCircleSize: 2
   bSplinePointPrefab: {fileID: 7131392085628968129, guid: 824499dc97508cd44a3d8efe514bc4f9,
     type: 3}
   bSplinePointsGeneratedEvent: {fileID: 11400000, guid: b9b0cb16d9c6c0e40960383bacdf2b93,
     type: 2}
+  colorPalette: {fileID: 11400000, guid: 95d49e5466f2632468738b321e849890, type: 2}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -306,7 +307,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_BackGroundColor: {r: 0.081604, g: 0.085069336, b: 0.092, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -592,6 +593,8 @@ MonoBehaviour:
   bsPointGen: {fileID: 335743522}
   bSplineCompletedEvent: {fileID: 11400000, guid: 95302f6517f6d5f418c62eb93654e62a,
     type: 2}
+  startingTrailOpacity: 0.75
+  colorPalette: {fileID: 11400000, guid: 95d49e5466f2632468738b321e849890, type: 2}
 --- !u!114 &2104354720
 MonoBehaviour:
   m_ObjectHideFlags: 0

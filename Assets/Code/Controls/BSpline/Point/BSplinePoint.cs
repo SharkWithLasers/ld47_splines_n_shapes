@@ -14,15 +14,21 @@ public class BSplinePoint : MonoBehaviour
 
     [SerializeField] private IntGameEvent bsPointIDragEnded;
 
+    [SerializeField] private BSplinePointRenderer renderer;
+
     // Start is called before the first frame update
     void Start()
     {
         
     }
 
-    public void SetIndex(int index)
+    public void Construct(int index, Color color)
     {
         Index = index;
+
+
+        renderer.SetColor(color);
+        //SetColor();
     }
 
     private void OnMouseEnter()
