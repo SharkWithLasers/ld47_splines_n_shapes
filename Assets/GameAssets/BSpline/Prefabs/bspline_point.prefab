@@ -74,6 +74,7 @@ MonoBehaviour:
   bsPointIDragStarted: {fileID: 11400000, guid: ebef9b989cd9eab47a1fe846737c7bde,
     type: 2}
   bsPointIDragEnded: {fileID: 11400000, guid: 6bb2fd88fdc8ba54c8d3d5947bea2f32, type: 2}
+  renderer: {fileID: 5714581418199454934}
 --- !u!1 &7131392085782835620
 GameObject:
   m_ObjectHideFlags: 0
@@ -84,6 +85,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7131392085782835621}
   - component: {fileID: 7131392085782835622}
+  - component: {fileID: 5714581418199454934}
   m_Layer: 0
   m_Name: white_sq_100x100
   m_TagString: Untagged
@@ -155,3 +157,15 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &5714581418199454934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7131392085782835620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cc153bb4a41dfb4c8acb0ae1c39408e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

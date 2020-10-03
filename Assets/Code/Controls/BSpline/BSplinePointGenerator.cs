@@ -10,7 +10,9 @@ public class BSplinePointGenerator : MonoBehaviour
 
     [SerializeField] private BSplinePoint bSplinePointPrefab;
 
-    [SerializeField] private GameEvent bSplinePointsGeneratedEvent; 
+    [SerializeField] private GameEvent bSplinePointsGeneratedEvent;
+
+    [SerializeField] private ColorPalette colorPalette;
 
     // yeah its mutable i know
     public List<BSplinePoint> bSplinePoints { get; private set; }
@@ -23,7 +25,9 @@ public class BSplinePointGenerator : MonoBehaviour
         {
             var bspGO = Instantiate(bSplinePointPrefab);
 
-            bspGO.SetIndex(i);
+            var color = colorPalette.GetColorAtT(
+                ((float)i) / numControlPoints);
+            bspGO.Construct(i, color);
 
             var t = (((float)i) / numControlPoints) * Mathf.PI * 2;
             bspGO.transform.position = new Vector2(
