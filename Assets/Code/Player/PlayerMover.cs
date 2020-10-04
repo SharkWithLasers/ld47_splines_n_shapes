@@ -122,6 +122,8 @@ public class PlayerMover : MonoBehaviour
 
     public void MakeSkinny(float secs)
     {
+        isMoving = false;
+
         playerRenderer.MakeSkinny(secs);
     }
 }

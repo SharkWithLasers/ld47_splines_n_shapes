@@ -94,9 +94,20 @@ public class BSplinePointRenderer : MonoBehaviour
         backgroundAuraDisc.Radius = initialBGAuraRadius;
         backgroundAuraDisc.Color = _initialBackgroundDiscColor;
 
-        // TODO, clickable, aura stuff... 
-        //var chillTime = 1f;
-        //StartCoroutine(ChillThen(chillTime, SetMouseOutAura));
+    }
+
+    public void UpdateColorTo(Color newColor)
+    {
+        var curColor = discInner.Color;
+
+        DOTween.To(
+            () => curColor,
+            x => {
+                curColor = x;
+                SetColor(x);
+            },
+            newColor,
+            .2f);
     }
 
     private void SetMouseOutAura()

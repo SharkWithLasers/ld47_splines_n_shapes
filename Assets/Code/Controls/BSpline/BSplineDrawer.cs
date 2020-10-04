@@ -317,10 +317,6 @@ public class BSplineDrawer : MonoBehaviour
 
     public void MakePlayerAndPolySkinny()
     {
-        // polylinebegun stuff
-
-        splineThickeningStartedEvent.Raise();
-
         DOTween.To(
                 () => polyLine.Thickness,
                 x => polyLine.Thickness = x,

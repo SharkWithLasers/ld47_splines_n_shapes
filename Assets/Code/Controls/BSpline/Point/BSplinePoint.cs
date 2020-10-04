@@ -1,4 +1,5 @@
 ﻿using ScriptableObjectArchitecture;
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
@@ -100,6 +101,11 @@ public class BSplinePoint : MonoBehaviour
         currentlyDragging = false;
 
         splinePointRenderer.MouseUpHappened(withinCollider);
+    }
+
+    internal void UpdateColorTo(Color newColor)
+    {
+        splinePointRenderer.UpdateColorTo(newColor);
     }
 
     public void OnPlayerHitTarget()
