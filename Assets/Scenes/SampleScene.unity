@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 141638129}
   - component: {fileID: 141638128}
   - component: {fileID: 141638130}
+  - component: {fileID: 141638132}
   - component: {fileID: 141638131}
   m_Layer: 0
   m_Name: SFXManager
@@ -307,6 +308,38 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &141638132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 141638125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 094217878ac039741aa004dbc1f81b20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _showDebugFields: 0
+  _enableGizmoDebugging: 1
+  _debugColor: {r: 0, g: 1, b: 1, a: 1}
+  _previouslyRegisteredEvent: {fileID: 0}
+  _event: {fileID: 11400000, guid: 278414787067da248997698053688a0f, type: 2}
+  _response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 141638127}
+        m_MethodName: OnCpMouseDown
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _debugValue: 0
 --- !u!1 &200635315
 GameObject:
   m_ObjectHideFlags: 0
@@ -674,6 +707,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levels:
+  - {fileID: 11400000, guid: 77970a5329d44e5459fa21704501acb1, type: 2}
   - {fileID: 11400000, guid: 40723f919f19181438279fd98a6d1424, type: 2}
   - {fileID: 11400000, guid: b9622234965b4ea4ba0ba40d782ca073, type: 2}
   - {fileID: 11400000, guid: 25f2d437a03df1245bf295ca9ea46996, type: 2}

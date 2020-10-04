@@ -61,7 +61,7 @@ public class BSplinePointGenerator : MonoBehaviour
         // TODO addition and subtraction stuff
         else if (totalNumControlPoints < bSplinePoints.Count)
         {
-            //StartCoroutine(RemoveControlPointsFlow(totalNumControlPoints));
+            StartCoroutine(RemoveControlPointsFlow(totalNumControlPoints));
 
             //AddControlPointsFlow(totalNumControlPoints);
 
@@ -77,7 +77,30 @@ public class BSplinePointGenerator : MonoBehaviour
 
     private IEnumerator RemoveControlPointsFlow(int totalNumControlPoints)
     {
-        throw new NotImplementedException();
+        for (var i = 0; i < totalNumControlPoints; i++)
+        {
+            var bspGO = bSplinePoints[i];
+
+            var newColor = colorPalette.GetColorAtT(
+                ((float)i) / totalNumControlPoints);
+
+            bspGO.UpdateColorTo(newColor);
+        }
+
+        yield return new WaitForSeconds(0.2f);
+
+        for (var i = bSplinePoints.Count-1; i >= totalNumControlPoints; i--)
+        {
+            var bspGO = bSplinePoints[i];
+
+            bspGO.BeginDeathSequence();
+
+            yield return new WaitForSeconds(1f);
+
+            bSplinePoints.RemoveAt(bSplinePoints.Count - 1);
+        }
+
+        bSplinePointsGeneratedEvent.Raise();
     }
 
     private IEnumerator AddControlPointsFlow(int totalNumControlPoints)

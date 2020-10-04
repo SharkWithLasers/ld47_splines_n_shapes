@@ -18,6 +18,9 @@ public class BSplinePoint : MonoBehaviour
 
     [SerializeField] private IntGameEvent onBsPointInstantiatedEvent;
 
+    [SerializeField] private IntGameEvent bsPointDyingEvent;
+
+
     [SerializeField] private BSplinePointRenderer splinePointRenderer;
     private bool withinCollider;
     private Collider2D _collider2D;
@@ -101,6 +104,13 @@ public class BSplinePoint : MonoBehaviour
         currentlyDragging = false;
 
         splinePointRenderer.MouseUpHappened(withinCollider);
+    }
+
+    public void BeginDeathSequence()
+    {
+        bsPointDyingEvent.Raise(Index);
+
+        splinePointRenderer.OnDeath(gameObject);
     }
 
     internal void UpdateColorTo(Color newColor)

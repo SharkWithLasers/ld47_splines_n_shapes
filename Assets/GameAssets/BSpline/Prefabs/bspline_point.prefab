@@ -200,6 +200,7 @@ MonoBehaviour:
   bsPointIDragEnded: {fileID: 11400000, guid: 6bb2fd88fdc8ba54c8d3d5947bea2f32, type: 2}
   onBsPointInstantiatedEvent: {fileID: 11400000, guid: 6a644d11f0978434ca156fba295c4e11,
     type: 2}
+  bsPointDyingEvent: {fileID: 11400000, guid: 278414787067da248997698053688a0f, type: 2}
   splinePointRenderer: {fileID: 7633706353247226921}
 --- !u!114 &2138431345050551732
 MonoBehaviour:
@@ -280,7 +281,8 @@ MonoBehaviour:
   _showDebugFields: 0
   _enableGizmoDebugging: 1
   _debugColor: {r: 0, g: 1, b: 1, a: 1}
-  _previouslyRegisteredEvent: {fileID: 0}
+  _previouslyRegisteredEvent: {fileID: 11400000, guid: 5bdf87cb0bc01aa468d4b5387c303f50,
+    type: 2}
   _event: {fileID: 11400000, guid: 5bdf87cb0bc01aa468d4b5387c303f50, type: 2}
   _response:
     m_PersistentCalls:

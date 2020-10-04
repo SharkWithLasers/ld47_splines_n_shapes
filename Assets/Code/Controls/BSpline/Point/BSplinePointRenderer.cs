@@ -75,6 +75,8 @@ public class BSplinePointRenderer : MonoBehaviour
 
     private Option<Sequence> radiusSeq = Option<Sequence>.None;
 
+    private Option<Tween> curScaleTween = Option<Tween>.None;
+
     private Color _initialBackgroundDiscColor;
     private Color _finalBackgroundDiscColor;
 
@@ -198,20 +200,18 @@ public class BSplinePointRenderer : MonoBehaviour
 
     public void OnPlayerHitTarget()
     {
-        if (currentlyScaling)
+        if (curScaleTween.HasValue && !curScaleTween.Value.IsComplete())
         {
             return;
         }
 
-        currentlyScaling = true;
-
 
         discInner.transform.localScale = Vector3.one;
-        discInner.transform
+        curScaleTween = discInner.transform
             .DOScale(playerHitTargetScaleAmt, playerHitTargetScaleDur)
             .SetLoops(2, LoopType.Yoyo)
             .SetEase(Ease.OutQuad)
-            .OnComplete(() => currentlyScaling = false);
+            .OnComplete(() => curScaleTween = Option<Tween>.None);
     }
 
     public void MouseEnterHappened()
@@ -273,8 +273,18 @@ public class BSplinePointRenderer : MonoBehaviour
     public void OnConstructed()
     {
         transform.localScale = Vector3.one * .1f;
+        curScaleTween = transform.DOScale(1, 0.75f);
+    }
 
-        transform
-            .DOScale(1, 0.75f);
+    public void OnDeath(GameObject goToKill)
+    {
+        if (curScaleTween.HasValue)
+        {
+            curScaleTween.Value.Kill();
+        }
+
+        curScaleTween = transform
+            .DOScale(0, .75f)
+            .OnComplete(() => Destroy(goToKill));
     }
 }
