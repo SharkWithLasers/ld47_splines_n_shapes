@@ -1,5 +1,6 @@
 ﻿using DG.Tweening;
 using Shapes;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,7 +24,9 @@ public class PlayerRenderer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        // stupid way of hiding it initially
+        outlineDisc.transform.localScale = Vector3.zero;
+        innerDisc.transform.localScale = Vector3.zero;
     }
 
     public void SetColorForT(float t)
@@ -62,5 +65,32 @@ public class PlayerRenderer : MonoBehaviour
             .SetLoops(2, LoopType.Yoyo)
             .SetEase(Ease.OutQuad)
             .OnComplete(() => currentlyScaling = false);
+    }
+
+    public void MakeThick(float secs)
+    {
+        outlineDisc.transform.localScale = Vector3.zero;
+        outlineDisc.transform
+            .DOScale(Vector3.one, secs)
+            .SetEase(Ease.OutQuad);
+
+        innerDisc.transform.localScale = Vector3.zero;
+        innerDisc.transform
+            .DOScale(Vector3.one, secs)
+            .SetEase(Ease.OutQuad);
+    }
+
+    public void MakeSkinny(float secs)
+    {
+        currentlyScaling = true;
+
+        outlineDisc.transform
+            .DOScale(Vector3.one, secs)
+            .SetEase(Ease.OutQuad);
+
+        innerDisc.transform.localScale = Vector3.zero;
+        innerDisc.transform
+            .DOScale(Vector3.one, secs)
+            .SetEase(Ease.OutQuad);
     }
 }

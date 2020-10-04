@@ -1,6 +1,7 @@
 ﻿using DG.Tweening;
 using KammBase;
 using Shapes;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -43,6 +44,7 @@ public class TargetRender : MonoBehaviour
     private Color _defaultPolygonColor;
     private float _initShapeRadius;
     private float _initAuraRadius;
+    public bool CurrentlyShrinking { get; private set; }
 
     //[SerializeField] private 
 
@@ -56,10 +58,20 @@ public class TargetRender : MonoBehaviour
         _initAuraRadius = polygonAura.Radius;
     }
 
-    public void SetShapeForIndex(int idx)
+    public void ConstructAndAnimate(int idx)
     {
         polygonShape.Sides = idx + 3;
         polygonAura.Sides = idx + 3;
+
+        polygonShape.transform.localScale = Vector3.zero;
+        polygonShape.transform
+            .DOScale(Vector3.one, 0.75f)
+            .SetEase(Ease.OutQuad);
+
+        innerCircle.transform.localScale = Vector3.zero;
+        innerCircle.transform
+            .DOScale(Vector3.one, 0.75f)
+            .SetEase(Ease.OutQuad);
     }
 
 
@@ -130,6 +142,20 @@ public class TargetRender : MonoBehaviour
 
         shapeTweenSeq.Value
             .SetLoops(2, LoopType.Yoyo);
+    }
+
+    public void BeginShrink()
+    {
+        CurrentlyShrinking = true;
+
+        polygonShape.transform
+            .DOScale(Vector3.zero, 0.75f)
+            .SetEase(Ease.OutQuad);
+
+        innerCircle.transform
+            .DOScale(Vector3.zero, 0.75f)
+            .SetEase(Ease.OutQuad)
+            .OnComplete(() => CurrentlyShrinking = false);
     }
 
     public void AuraTween(Color colorToUse)

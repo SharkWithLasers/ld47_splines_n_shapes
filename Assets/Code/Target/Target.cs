@@ -63,18 +63,19 @@ public class Target : MonoBehaviour
 
         _ld = ld;
 
-        targetRender.SetShapeForIndex(index);
+        targetRender.ConstructAndAnimate(index);
+
+        targetAudio.OnPlayerHit(_index, _totalNumForLevel, hitCorrectly: true);
 
         // only so we can edit stuff in edit mode
         _destroyBecauseOfDeath = false;
 
-        // TODO INITIALIZE JUICE
+        _shouldCheckCollisions = false;
 
         curState = TargetState.Idle;
 
         curStateRedux = TargetStateRedux.Awaiting;
 
-        _shouldCheckCollisions = true;
     }
 
     private void Update()
@@ -123,6 +124,9 @@ public class Target : MonoBehaviour
         _destroyBecauseOfDeath = true;
         _shouldCheckCollisions = false;
 
+        //shrink!!
+        targetRender.BeginShrink();
+
         StartCoroutine(WaitForStuffThenDie());
     }
 
@@ -131,9 +135,15 @@ public class Target : MonoBehaviour
         // hmm not robust
         _shouldCheckCollisions = false;
 
-        yield return new WaitWhile(() => targetAudio.currentlyPlaying);
+        yield return new WaitWhile(
+            () => targetAudio.currentlyPlaying && targetRender.CurrentlyShrinking);
 
         Destroy(this.gameObject);
+    }
+
+    public void OnLevelCompleted()
+    {
+        _shouldCheckCollisions = false;
     }
 
     public void OnPlayerLoopedIncomplete()
@@ -205,7 +215,7 @@ public class Target : MonoBehaviour
         a.Invoke();
     }
 
-    void TurnCollisionCheckOnIfNotDead()
+    public void TurnCollisionCheckOnIfNotDead()
     {
         if (!_destroyBecauseOfDeath)
         {

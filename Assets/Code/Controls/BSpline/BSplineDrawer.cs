@@ -9,6 +9,8 @@ using UnityEngine;
 
 public class BSplineDrawer : MonoBehaviour
 {
+    [SerializeField] private PlayerMover playerMover;
+
     // doesn't include last part of curve
     [SerializeField] private int numSamplePointsPerCurve = 10;
 
@@ -28,6 +30,14 @@ public class BSplineDrawer : MonoBehaviour
     [SerializeField] private BSplinePointGenerator bsPointGen;
 
     [SerializeField] private GameEvent bSplineCompletedEvent;
+
+    [SerializeField] private GameEvent splineThickeningStartedEvent;
+
+    [SerializeField] private GameEvent splineThickeningEndedEvent;
+
+    [SerializeField] private GameEvent splineAlreadyFineEvent;
+
+
 
     [Range(0, 1)]
     [SerializeField] private float startingTrailOpacity;
@@ -152,6 +162,7 @@ public class BSplineDrawer : MonoBehaviour
 
         GeneratePolyline();
 
+        MakePlayerAndPolyThick();
         bSplineCompletedEvent.Raise();
     }
 
@@ -277,5 +288,45 @@ public class BSplineDrawer : MonoBehaviour
             .SetLoops(2, LoopType.Yoyo)
             .SetEase(Ease.OutQuad)
             .OnComplete(() => currentlyThickening = false);
+    }
+
+
+    public void OnNoUpdateNecessary()
+    {
+        splineAlreadyFineEvent.Raise();
+
+        //MakePlayerAndPolyThick();
+    }
+
+    private void MakePlayerAndPolyThick()
+    {
+        // polylinebegun stuff
+
+        splineThickeningStartedEvent.Raise();
+
+        polyLine.Thickness = 0f;
+        DOTween.To(
+                () => polyLine.Thickness,
+                x => polyLine.Thickness = x,
+                initPLThickness,
+                .75f)
+            .OnComplete(() => splineThickeningEndedEvent.Raise());
+
+        playerMover.MakeThick(0.75f);
+    }
+
+    public void MakePlayerAndPolySkinny()
+    {
+        // polylinebegun stuff
+
+        splineThickeningStartedEvent.Raise();
+
+        DOTween.To(
+                () => polyLine.Thickness,
+                x => polyLine.Thickness = x,
+                0,
+                .75f);
+
+        playerMover.MakeSkinny(0.75f);
     }
 }
