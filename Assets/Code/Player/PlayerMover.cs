@@ -69,11 +69,16 @@ public class PlayerMover : MonoBehaviour
             numLoopItersSinceTri++;
         }
 
+        var inLastNineTenthsOfTriLoop =
+            (triangleT >= 0.9f && curT < triangleT && ((triangleT + 0.1f) % 1) < curT)
+            || (triangleT < 0.9f && (triangleT + 0.1f) < curT);
+        /*
         var inSecondHalfOfTriLoop =
             (triangleT >= 0.5f && curT < triangleT && ((triangleT + 0.5f) % 1) < curT)
             || (triangleT < 0.5f && (triangleT + 0.5f) < curT);
-        // 1.5 iters has passed
-        if (numLoopItersSinceTri >= 1 && inSecondHalfOfTriLoop)
+            */
+        // 1.1 iters has passed
+        if (numLoopItersSinceTri >= 1 && inLastNineTenthsOfTriLoop)
         {
             currentlyInTLoop = false;
             // should set triangleT and numLoopIters to none, or use struct
@@ -91,11 +96,13 @@ public class PlayerMover : MonoBehaviour
         if (targetIdx == 0)
         {
             // start dat loop! (a little bit before to handle Update)
-            triangleT = MathUtil.mod(curT - .1f, 1);
+            triangleT = MathUtil.mod(curT - .05f, 1);
             numLoopItersSinceTri = 0;
             currentlyInTLoop = true;
 
             // in a valid loop
         }
+
+        playerRenderer.OnPlayerHitTarget();
     }
 }

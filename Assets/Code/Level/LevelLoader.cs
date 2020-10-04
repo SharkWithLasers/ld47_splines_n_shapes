@@ -172,6 +172,15 @@ public class LevelLoader : MonoBehaviour
             {
                 target.OnCorrectlyHit();
 
+                if (targetIdx == 0)
+                {
+                    // set all the others back to default
+                    for (var i = 1; i < curLevelTargets.Count; i++)
+                    {
+                        curLevelTargets[i].OnDefaultState();
+                    }
+                }
+
                 _curExpectedTargetIdx = (_curExpectedTargetIdx + 1) % curLevelTargets.Count;
             }
 

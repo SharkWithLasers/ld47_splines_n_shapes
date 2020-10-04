@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &4792609056996730062
+--- !u!1 &1856833366194982663
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,61 +8,61 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6791742594721802657}
-  - component: {fileID: 628894537357768626}
-  - component: {fileID: 4187259122540233343}
-  - component: {fileID: 9162324128533314609}
+  - component: {fileID: 1307384930817472833}
+  - component: {fileID: 5587092522489029773}
+  - component: {fileID: 2179333143264469381}
+  - component: {fileID: 8950245438520421513}
   m_Layer: 0
-  m_Name: DiscOuter
+  m_Name: BackgroundVFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6791742594721802657
+--- !u!4 &1307384930817472833
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4792609056996730062}
+  m_GameObject: {fileID: 1856833366194982663}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 65227684036547197}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &628894537357768626
+--- !u!114 &5587092522489029773
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4792609056996730062}
+  m_GameObject: {fileID: 1856833366194982663}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8dd51d29965c9d04599a2fdc8a833c6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blendMode: 1
+  blendMode: 2
   scaleMode: 0
-  color: {r: 0.03529412, g: 0.03529412, b: 0.03529412, a: 1}
+  color: {r: 0.12100001, g: 0.12100001, b: 0.12100001, a: 1}
   zTest: 4
   zOffsetFactor: 0
   zOffsetUnits: 0
-  type: 2
+  type: 0
   colorMode: 0
   colorOuterStart: {r: 1, g: 1, b: 1, a: 1}
   colorInnerEnd: {r: 1, g: 1, b: 1, a: 1}
   colorOuterEnd: {r: 1, g: 1, b: 1, a: 1}
   geometry: 0
   angUnitInput: 1
-  angRadiansStart: 2.1450098
-  angRadiansEnd: -3.2044246
+  angRadiansStart: 0
+  angRadiansEnd: 2.3561945
   radius: 0.1
   radiusSpace: 0
-  thickness: 0.025
+  thickness: 0.06
   thicknessSpace: 0
   arcEndCaps: 0
   matchDashSpacingToSize: 1
@@ -74,21 +74,21 @@ MonoBehaviour:
     size: 16
     offset: 0
     spacing: 0.5
---- !u!33 &4187259122540233343
+--- !u!33 &2179333143264469381
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4792609056996730062}
+  m_GameObject: {fileID: 1856833366194982663}
   m_Mesh: {fileID: 0}
---- !u!23 &9162324128533314609
+--- !u!23 &8950245438520421513
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4792609056996730062}
+  m_GameObject: {fileID: 1856833366194982663}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -100,7 +100,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d72c5e047d4188246887ffb9389e25a7, type: 2}
+  - {fileID: 2100000, guid: b7202a485b910d24cbcc182ef5d63de8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -118,8 +118,8 @@ MeshRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 105744405
-  m_SortingLayer: 2
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
   m_SortingOrder: 0
 --- !u!1 &7131392085628968143
 GameObject:
@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 7131392085628968128}
   - component: {fileID: 7131392085628968130}
   - component: {fileID: 7131392085628968129}
+  - component: {fileID: 2138431345050551732}
   m_Layer: 0
   m_Name: bspline_point
   m_TagString: Untagged
@@ -195,7 +196,39 @@ MonoBehaviour:
   bsPointIDragStarted: {fileID: 11400000, guid: ebef9b989cd9eab47a1fe846737c7bde,
     type: 2}
   bsPointIDragEnded: {fileID: 11400000, guid: 6bb2fd88fdc8ba54c8d3d5947bea2f32, type: 2}
-  renderer: {fileID: 7633706353247226921}
+  splinePointRenderer: {fileID: 7633706353247226921}
+--- !u!114 &2138431345050551732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7131392085628968143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 094217878ac039741aa004dbc1f81b20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _showDebugFields: 0
+  _enableGizmoDebugging: 1
+  _debugColor: {r: 0, g: 1, b: 1, a: 1}
+  _previouslyRegisteredEvent: {fileID: 0}
+  _event: {fileID: 11400000, guid: 2e8ee345aea5ede49b9700f1f157521a, type: 2}
+  _response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7131392085628968129}
+        m_MethodName: OnPlayerHitTarget
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _debugValue: 0
 --- !u!1 &8995866013462382330
 GameObject:
   m_ObjectHideFlags: 0
@@ -224,8 +257,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 6791742594721802657}
   - {fileID: 8901823768519637022}
+  - {fileID: 1307384930817472833}
   m_Father: {fileID: 7131392085628968128}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -241,9 +274,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cc153bb4a41dfb4c8acb0ae1c39408e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  discColorStrat: 2
-  discOuter: {fileID: 628894537357768626}
   discInner: {fileID: 4240326623993292602}
+  playerHitTargetScaleAmt: 1.15
+  playerHitTargetScaleDur: 0.125
+  mouseOverTweenTime: 0.2
+  initialDiscRadius: 0.115
+  mouseOverRadius: 0.14
+  mouseDownRadius: 0.175
+  backgroundAuraDisc: {fileID: 5587092522489029773}
+  initialBGAuraRadius: 0.1
+  initialBGAuraAlpha: 0.05
+  mouseOutAuraRadius: 0.3
+  mouseOutRadiusAuraSecs: 1.25
+  mouseOutColorAuraSecs: 0.5
+  mouseOutPauseInterval: 2
+  mouseOutNumLoops: -1
+  mouseInAuraRadius: 0.6
+  mouseInRadiusAuraSecs: 0.75
+  mouseInColorAuraSecs: 0.25
+  mouseInPauseInterval: 0.2
+  mouseInNumLoops: -1
+  mouseDownAuraRadius: 0.9
+  mouseDownRadiusAuraSecs: 0.25
+  mouseDownColorAuraSecs: 0.5
+  mouseDownPauseInterval: 1
+  mouseDownNumLoops: 1
 --- !u!1 &9191368400920187450
 GameObject:
   m_ObjectHideFlags: 0
@@ -275,7 +330,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 65227684036547197}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4240326623993292602
 MonoBehaviour:
@@ -304,7 +359,7 @@ MonoBehaviour:
   angUnitInput: 1
   angRadiansStart: 2.1450098
   angRadiansEnd: -3.2044246
-  radius: 0.1
+  radius: 0.115
   radiusSpace: 0
   thickness: 0.025
   thicknessSpace: 0

@@ -5,6 +5,7 @@ using UnityEngine;
 public class BSplinePoint : MonoBehaviour
 {
     private Vector3 mOffset;
+    private bool currentlyDragging;
     private float mZCoord;
 
     public int Index { get; private set; }
@@ -14,7 +15,8 @@ public class BSplinePoint : MonoBehaviour
 
     [SerializeField] private IntGameEvent bsPointIDragEnded;
 
-    [SerializeField] private BSplinePointRenderer renderer;
+    [SerializeField] private BSplinePointRenderer splinePointRenderer;
+    private bool withinCollider;
 
     // Start is called before the first frame update
     void Start()
@@ -26,33 +28,37 @@ public class BSplinePoint : MonoBehaviour
     {
         Index = index;
 
-
-        renderer.SetColor(color);
-        //SetColor();
+        splinePointRenderer.SetColor(color);
     }
 
     private void OnMouseEnter()
     {
-        SetClickableRender();
-    }
+        withinCollider = true;
 
-    private void SetClickableRender()
-    {
+        if (!currentlyDragging)
+        {
+            splinePointRenderer.MouseEnterHappened();
+        }
     }
 
     private void OnMouseExit()
     {
-        SetNotClickableRender();
-    }
+        withinCollider = false;
 
-    private void SetNotClickableRender()
-    {
+        if (!currentlyDragging)
+        {
+            splinePointRenderer.MouseExitHappened();
+        }
     }
 
     private void OnMouseDown()
     {
         mZCoord = Camera.main.ScreenToWorldPoint(transform.position).z;
         mOffset = transform.position - GetMouseWorldPosClamped();
+
+        splinePointRenderer.MouseDownHappened();
+
+        currentlyDragging = true;
 
         bsPointIDragStarted.Raise(Index);
     }
@@ -76,5 +82,14 @@ public class BSplinePoint : MonoBehaviour
     private void OnMouseUp()
     {
         bsPointIDragEnded.Raise(Index);
+
+        currentlyDragging = false;
+
+        splinePointRenderer.MouseUpHappened(withinCollider);
+    }
+
+    public void OnPlayerHitTarget()
+    {
+        splinePointRenderer.OnPlayerHitTarget();
     }
 }

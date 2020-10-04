@@ -291,6 +291,8 @@ MonoBehaviour:
   outlineDisc: {fileID: 1999624030}
   innerDisc: {fileID: 1977700747}
   colorPalette: {fileID: 11400000, guid: 95d49e5466f2632468738b321e849890, type: 2}
+  onTargetHitScale: 1.35
+  scaleTweenTime: 0.125
 --- !u!1 &304850049
 GameObject:
   m_ObjectHideFlags: 0
@@ -1901,6 +1903,7 @@ GameObject:
   - component: {fileID: 2104354720}
   - component: {fileID: 2104354722}
   - component: {fileID: 2104354721}
+  - component: {fileID: 2104354723}
   m_Layer: 0
   m_Name: BSplineDrawer
   m_TagString: Untagged
@@ -1937,6 +1940,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   numSamplePointsPerCurve: 20
   polyLine: {fileID: 2094502003}
+  initPLThickness: 0.0625
+  onPlayerHitPLThickness: 0.08
+  onPlayerHitTweenTime: 0.15
   sPoints: []
   pPoints: []
   bsPointGen: {fileID: 335743522}
@@ -2031,6 +2037,38 @@ MonoBehaviour:
       - m_Target: {fileID: 2104354719}
         m_MethodName: OnBSPointIDragStarted
         m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _debugValue: 0
+--- !u!114 &2104354723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2104354717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 094217878ac039741aa004dbc1f81b20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _showDebugFields: 0
+  _enableGizmoDebugging: 1
+  _debugColor: {r: 0, g: 1, b: 1, a: 1}
+  _previouslyRegisteredEvent: {fileID: 0}
+  _event: {fileID: 11400000, guid: 2e8ee345aea5ede49b9700f1f157521a, type: 2}
+  _response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2104354719}
+        m_MethodName: OnPlayerHitTarget
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

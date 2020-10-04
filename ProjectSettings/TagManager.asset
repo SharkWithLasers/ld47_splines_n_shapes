@@ -38,6 +38,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: BackgroundVFX
+    uniqueID: 567864901
+    locked: 0
   - name: SplineRender
     uniqueID: 2388533183
     locked: 0
