@@ -94,11 +94,19 @@ public class BSplinePoint : MonoBehaviour
 
     private void OnMouseDrag()
     {
-        transform.position = GetMouseWorldPosClamped() + mOffset;
+        if (currentlyDragging)
+        {
+            transform.position = GetMouseWorldPosClamped() + mOffset;
+        }
     }
 
     private void OnMouseUp()
     {
+        if (!currentlyDragging)
+        {
+            return;
+        }
+
         bsPointIDragEnded.Raise(Index);
 
         currentlyDragging = false;
@@ -132,6 +140,13 @@ public class BSplinePoint : MonoBehaviour
     public void OnUpdateCPPoints()
     {
         _collider2D.enabled = false;
+
+        if (currentlyDragging)
+        {
+            bsPointIDragEnded.Raise(Index);
+            currentlyDragging = false;
+        }
+
         splinePointRenderer.MouseExitHappened();
         splinePointRenderer.CancelAura();
     }

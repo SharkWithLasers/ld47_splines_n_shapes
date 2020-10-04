@@ -563,7 +563,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sampleNumControlPoints: 3
-  initCircleSize: 2
+  initCircleSize: 2.5
   bSplinePointPrefab: {fileID: 7131392085628968129, guid: 824499dc97508cd44a3d8efe514bc4f9,
     type: 3}
   noGenerationNecessaryEvent: {fileID: 11400000, guid: 16ef9e35bfc103f40982dd0da9907feb,
@@ -707,8 +707,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levels:
-  - {fileID: 11400000, guid: 77970a5329d44e5459fa21704501acb1, type: 2}
   - {fileID: 11400000, guid: 40723f919f19181438279fd98a6d1424, type: 2}
+  - {fileID: 11400000, guid: 77970a5329d44e5459fa21704501acb1, type: 2}
   - {fileID: 11400000, guid: b9622234965b4ea4ba0ba40d782ca073, type: 2}
   - {fileID: 11400000, guid: 25f2d437a03df1245bf295ca9ea46996, type: 2}
   - {fileID: 11400000, guid: fc15cc9c14a291848a39414c9b939344, type: 2}

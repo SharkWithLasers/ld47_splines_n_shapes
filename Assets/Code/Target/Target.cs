@@ -2,6 +2,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 using UnityEngine;
 
 public class Target : MonoBehaviour
@@ -223,6 +226,8 @@ public class Target : MonoBehaviour
         }
     }
 
+#if UNITY_EDITOR
+
     private void OnDestroy()
     {
         TryOverwriteLevelData();
@@ -234,6 +239,10 @@ public class Target : MonoBehaviour
             && _ld != null)
         {
             _ld.TargetPositions[_index] = transform.position;
+
+            EditorUtility.SetDirty(_ld);
         }
     }
+
+#endif
 }

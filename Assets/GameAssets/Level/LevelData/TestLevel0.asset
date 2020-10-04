@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: TestLevel0
   m_EditorClassIdentifier: 
   targetPositions:
-  - {x: 2.5, y: 2.5}
+  - {x: 2.5, y: -1.09}
   numControlPoints: 3
