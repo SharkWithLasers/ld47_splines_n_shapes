@@ -50,6 +50,124 @@ MonoBehaviour:
   properCollisionClip: {fileID: 8300000, guid: b2351431c37f0f14b8b71eccaef1d638, type: 3}
   improperCollisionClip: {fileID: 8300000, guid: a8e666051526cc44bbbaeae41e88a9ce,
     type: 3}
+--- !u!1 &2525240667910081499
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2538478274353174488}
+  - component: {fileID: 8936761399697143084}
+  - component: {fileID: 3454292120819777168}
+  - component: {fileID: 664923236490095543}
+  m_Layer: 0
+  m_Name: PolygonAura
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2538478274353174488
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2525240667910081499}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8829152640493591402}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8936761399697143084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2525240667910081499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56df0c96eec286545998945068c17e17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blendMode: 2
+  scaleMode: 0
+  color: {r: 0.19379672, g: 0.53177667, b: 0.6320754, a: 1}
+  zTest: 4
+  zOffsetFactor: 0
+  zOffsetUnits: 0
+  fill:
+    type: 0
+    space: 0
+    colorStart: {r: 0, g: 0, b: 0, a: 1}
+    colorEnd: {r: 1, g: 1, b: 1, a: 1}
+    linearStart: {x: 0, y: 0, z: 0}
+    linearEnd: {x: 0, y: 1, z: 0}
+    radialOrigin: {x: 0, y: 0, z: 0}
+    radialRadius: 1
+  useFill: 0
+  hollow: 0
+  sides: 3
+  roundness: 0
+  angle: 1.5707964
+  radius: 0.24
+  angUnitInput: 1
+  geometry: 0
+  radiusSpace: 0
+  thickness: 0.5
+  thicknessSpace: 0
+--- !u!33 &3454292120819777168
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2525240667910081499}
+  m_Mesh: {fileID: 0}
+--- !u!23 &664923236490095543
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2525240667910081499}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: ed74fbb7815e64943a518044394981ca, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 567864901
+  m_SortingLayer: -2
+  m_SortingOrder: 0
 --- !u!1 &5252124902675948371
 GameObject:
   m_ObjectHideFlags: 0
@@ -251,7 +369,7 @@ MonoBehaviour:
     maxNormalAngle: 0
   playerCollidedWithTargetEvent: {fileID: 11400000, guid: 2e8ee345aea5ede49b9700f1f157521a,
     type: 2}
-  secondsBetweenCollisions: 0.5
+  secondsBetweenCollisions: 1
 --- !u!1 &5252124903943326652
 GameObject:
   m_ObjectHideFlags: 0
@@ -400,6 +518,7 @@ Transform:
   m_Children:
   - {fileID: 5252124903943326653}
   - {fileID: 5252124902675948372}
+  - {fileID: 2538478274353174488}
   m_Father: {fileID: 5252124903824265255}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -416,10 +535,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   polygonShape: {fileID: 5252124903943326640}
+  polygonAura: {fileID: 8936761399697143084}
   innerCircle: {fileID: 5252124902675948375}
   defaultDiscColor: {r: 0, g: 0, b: 0, a: 1}
-  correctOrderDiscColor: {r: 1, g: 1, b: 1, a: 1}
+  correctOrderDiscColor: {r: 0.9, g: 0.9, b: 0.9, a: 1}
   wrongOrderDiscColor: {r: 0.78, g: 0.19889998, b: 0.19889998, a: 1}
+  collisionRadiusPeak: 0.333
+  collisionTweenTime: 0.15
+  revertTweenTime: 0.2
+  polygonAuraRadiusEnd: 0.6
+  polygonAuraAlphaStart: 0.05
+  auraRadiusTime: 0.5
+  auraAlphaTime: 0.5
 --- !u!1 &6603518481208157235
 GameObject:
   m_ObjectHideFlags: 0

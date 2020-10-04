@@ -138,7 +138,7 @@ public class Target : MonoBehaviour
 
     public void OnPlayerLoopedIncomplete()
     {
-        targetRender.SetDefaultDiscColor();
+        targetRender.SetToDefault();
         curStateRedux = TargetStateRedux.Awaiting; 
 
 
@@ -154,15 +154,19 @@ public class Target : MonoBehaviour
 
     public void OnDefaultState()
     {
-        targetRender.SetDefaultDiscColor();
+        if (curStateRedux != TargetStateRedux.Awaiting)
+        {
+            targetRender.SetToDefault();
 
-        _shouldCheckCollisions = true;
+            _shouldCheckCollisions = true;
 
+            curStateRedux = TargetStateRedux.Awaiting;
+        }
     }
 
     public void OnCorrectlyHit(bool playAudio = true)
     {
-        targetRender.SetCorrectOrderDiscColor();
+        targetRender.SetToCorrectOrder();
 
         if (playAudio)
         {
@@ -185,7 +189,7 @@ public class Target : MonoBehaviour
 
     public void OnIncorrectlyHit()
     {
-        targetRender.SetWrongOrderDiscColor();
+        targetRender.SetToWrongOrder();
 
         targetAudio.OnPlayerHit(_index, _totalNumForLevel, hitCorrectly: false);
 
