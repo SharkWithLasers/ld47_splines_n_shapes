@@ -356,12 +356,12 @@ MonoBehaviour:
   mouseOutAuraRadius: 0.3
   mouseOutRadiusAuraSecs: 1.25
   mouseOutColorAuraSecs: 0.5
-  mouseOutPauseInterval: 2
+  mouseOutPauseInterval: 1
   mouseOutNumLoops: -1
   mouseInAuraRadius: 0.6
   mouseInRadiusAuraSecs: 0.75
   mouseInColorAuraSecs: 0.25
-  mouseInPauseInterval: 0.2
+  mouseInPauseInterval: 0.1
   mouseInNumLoops: -1
   mouseDownAuraRadius: 0.9
   mouseDownRadiusAuraSecs: 0.25

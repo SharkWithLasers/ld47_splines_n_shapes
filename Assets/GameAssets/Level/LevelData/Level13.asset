@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 493ef06a80c33674688c60682f6c3d88, type: 3}
+  m_Name: Level13
+  m_EditorClassIdentifier: 
+  targetPositions:
+  - {x: 0.36, y: -0.24}
+  - {x: 2.41, y: -0.79}
+  - {x: 4.48, y: -0.06}
+  - {x: 3.34, y: 1.58}
+  - {x: 2.19, y: 1.62}
+  - {x: 2.85, y: 0.52}
+  numControlPoints: 5
