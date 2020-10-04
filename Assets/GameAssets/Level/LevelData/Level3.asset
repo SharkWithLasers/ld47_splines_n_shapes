@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 493ef06a80c33674688c60682f6c3d88, type: 3}
-  m_Name: TestLevel0
+  m_Name: Level3
   m_EditorClassIdentifier: 
   targetPositions:
-  - {x: 2.5, y: -1.09}
+  - {x: -1.72, y: -1.73}
+  - {x: 2, y: 0.8}
   numControlPoints: 3
