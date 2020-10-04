@@ -1,4 +1,5 @@
 ﻿using DG.Tweening;
+using KammBase;
 using Shapes;
 using System;
 using System.Collections;
@@ -20,6 +21,10 @@ public class PlayerRenderer : MonoBehaviour
     [SerializeField] private float onTargetHitScale = 1.35f;
     [SerializeField] private float scaleTweenTime = .15f;
     private bool currentlyScaling;
+
+    private Option<Tween> outlineDiscFatTween = Option<Tween>.None;
+    private Option<Tween> innerDiscFatTween = Option<Tween>.None;
+
 
     // Start is called before the first frame update
     void Start()
@@ -69,28 +74,50 @@ public class PlayerRenderer : MonoBehaviour
 
     public void MakeThick(float secs)
     {
+        if (outlineDiscFatTween.HasValue
+            && !outlineDiscFatTween.Value.IsComplete())
+        {
+            outlineDiscFatTween.Value.Kill();
+        }
+
+        if (innerDiscFatTween.HasValue
+            && !innerDiscFatTween.Value.IsComplete())
+        {
+            innerDiscFatTween.Value.Kill();
+        }
+
         outlineDisc.transform.localScale = Vector3.zero;
-        outlineDisc.transform
+        outlineDiscFatTween = outlineDisc.transform
             .DOScale(Vector3.one, secs)
             .SetEase(Ease.OutQuad);
 
         innerDisc.transform.localScale = Vector3.zero;
-        innerDisc.transform
+        innerDiscFatTween = innerDisc.transform
             .DOScale(Vector3.one, secs)
             .SetEase(Ease.OutQuad);
     }
 
     public void MakeSkinny(float secs)
     {
-        currentlyScaling = true;
+        if (outlineDiscFatTween.HasValue
+            && !outlineDiscFatTween.Value.IsComplete())
+        {
+            outlineDiscFatTween.Value.Kill();
+        }
 
-        outlineDisc.transform
-            .DOScale(Vector3.one, secs)
+        if (innerDiscFatTween.HasValue
+            && !innerDiscFatTween.Value.IsComplete())
+        {
+            innerDiscFatTween.Value.Kill();
+        }
+
+        outlineDiscFatTween = outlineDisc.transform
+            .DOScale(Vector3.zero, secs)
             .SetEase(Ease.OutQuad);
 
         innerDisc.transform.localScale = Vector3.zero;
-        innerDisc.transform
-            .DOScale(Vector3.one, secs)
+        innerDiscFatTween = innerDisc.transform
+            .DOScale(Vector3.zero, secs)
             .SetEase(Ease.OutQuad);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using ScriptableObjectArchitecture;
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
@@ -16,6 +17,9 @@ public class BSplinePoint : MonoBehaviour
     [SerializeField] private IntGameEvent bsPointIDragEnded;
 
     [SerializeField] private IntGameEvent onBsPointInstantiatedEvent;
+
+    [SerializeField] private IntGameEvent bsPointDyingEvent;
+
 
     [SerializeField] private BSplinePointRenderer splinePointRenderer;
     private bool withinCollider;
@@ -102,6 +106,18 @@ public class BSplinePoint : MonoBehaviour
         splinePointRenderer.MouseUpHappened(withinCollider);
     }
 
+    public void BeginDeathSequence()
+    {
+        bsPointDyingEvent.Raise(Index);
+
+        splinePointRenderer.OnDeath(gameObject);
+    }
+
+    internal void UpdateColorTo(Color newColor)
+    {
+        splinePointRenderer.UpdateColorTo(newColor);
+    }
+
     public void OnPlayerHitTarget()
     {
         splinePointRenderer.OnPlayerHitTarget();
@@ -111,5 +127,12 @@ public class BSplinePoint : MonoBehaviour
     {
         _collider2D.enabled = true;
         splinePointRenderer.MouseExitHappened();
+    }
+
+    public void OnUpdateCPPoints()
+    {
+        _collider2D.enabled = false;
+        splinePointRenderer.MouseExitHappened();
+        splinePointRenderer.CancelAura();
     }
 }

@@ -91,6 +91,10 @@ public class LevelLoader : MonoBehaviour
     {
         var curLevel = levels[curLevelIdx];
 
+        curLevelTargets = new List<Target>();
+        targetsHitProperly = new HashSet<int>();
+        targetsHitProperlyCount = 0;
+
         // PART 3 ... now we gotta create the targets
         yield return new WaitForSeconds(.25f);
 
@@ -228,18 +232,23 @@ public class LevelLoader : MonoBehaviour
         var curLevel = levels[curLevelIdx];
         var nextLevel = levels[nextLevelIdx];
 
+        yield return new WaitForSeconds(1.5f);
+
+        // sooo clunky
         if (curLevel.NumControlPoints != nextLevel.NumControlPoints)
         {
             shrinkPlayerAndSplineEvent.Raise();
+            /*yield return new WaitForSeconds(
+                1 * Mathf.Abs(curLevel.NumControlPoints - nextLevel.NumControlPoints));
+                */
         }
 
-        yield return new WaitForSeconds(1f);
-
-        curLevelTargets = new List<Target>();
-        targetsHitProperly = new HashSet<int>();
-        targetsHitProperlyCount = 0;
-
         curLevelIdx = nextLevelIdx;
+
         BeginLoadLevel();
+
+        //yield return new WaitForSeconds(1f);
+
+        //curLevelIdx = nextLevelIdx;
     }
 }
