@@ -121,25 +121,11 @@ public class BSplinePointGenerator : MonoBehaviour
             var color = colorPalette.GetColorAtT(
                 ((float)curI) / totalNumControlPoints);
 
-            var prevI = curI - 1;
-
-            var nextI = 0;
-
-            var posPrev = bSplinePoints[prevI].transform.position;
-            var posNext = bSplinePoints[nextI].transform.position;
 
             bspGO.transform.position = new Vector3(
                 UnityEngine.Random.Range(lowerLeft.x, topRight.x),
                 UnityEngine.Random.Range(lowerLeft.y, topRight.y),
                 0);
-
-            /*
-            bspGO.transform.position = (posPrev + posNext) / 2;
-
-            bspGO.transform.position += new Vector3(
-                -Mathf.Sign(bspGO.transform.position.x) * UnityEngine.Random.Range(.5f, 1f),
-                -Mathf.Sign(bspGO.transform.position.y) * UnityEngine.Random.Range(.5f, 1f),
-                0);*/
 
             bspGO.Construct(curI, color);
 

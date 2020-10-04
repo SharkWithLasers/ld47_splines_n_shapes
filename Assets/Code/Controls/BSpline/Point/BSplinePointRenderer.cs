@@ -122,6 +122,14 @@ public class BSplinePointRenderer : MonoBehaviour
             resetRadius: true);
     }
 
+    public void CancelAura()
+    {
+        if (radiusSeq.HasValue)
+        {
+            radiusSeq.Value.Kill();
+        }
+    }
+
     private void SetMouseInAura()
     {
         SetBackgroundAuraLoop(

@@ -118,4 +118,11 @@ public class BSplinePoint : MonoBehaviour
         _collider2D.enabled = true;
         splinePointRenderer.MouseExitHappened();
     }
+
+    public void OnUpdateCPPoints()
+    {
+        _collider2D.enabled = false;
+        splinePointRenderer.MouseExitHappened();
+        splinePointRenderer.CancelAura();
+    }
 }
