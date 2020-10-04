@@ -1,4 +1,5 @@
-﻿using Shapes;
+﻿using DG.Tweening;
+using Shapes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,10 @@ public class PlayerRenderer : MonoBehaviour
     [SerializeField] private Disc innerDisc;
 
     [SerializeField] private ColorPalette colorPalette;
+
+    [SerializeField] private float onTargetHitScale = 1.35f;
+    [SerializeField] private float scaleTweenTime = .15f;
+    private bool currentlyScaling;
 
     // Start is called before the first frame update
     void Start()
@@ -32,5 +37,30 @@ public class PlayerRenderer : MonoBehaviour
         {
             innerDisc.Color = colorPalette.GetColorAtT(tToUse);
         }
+    }
+
+    public void OnPlayerHitTarget()
+    {
+        if (currentlyScaling)
+        {
+            return;
+        }
+
+        currentlyScaling = true;
+
+
+        outlineDisc.transform.localScale = Vector3.one;
+        outlineDisc.transform
+            .DOScale(onTargetHitScale, scaleTweenTime)
+            .SetLoops(2, LoopType.Yoyo)
+            .SetEase(Ease.OutQuad)
+            .OnComplete(() => currentlyScaling = false);
+
+        innerDisc.transform.localScale = Vector3.one;
+        innerDisc.transform
+            .DOScale(onTargetHitScale, scaleTweenTime)
+            .SetLoops(2, LoopType.Yoyo)
+            .SetEase(Ease.OutQuad)
+            .OnComplete(() => currentlyScaling = false);
     }
 }

@@ -184,6 +184,10 @@ public class BSplinePointRenderer : MonoBehaviour
             return;
         }
 
+        currentlyScaling = true;
+
+
+        discInner.transform.localScale = Vector3.one;
         discInner.transform
             .DOScale(playerHitTargetScaleAmt, playerHitTargetScaleDur)
             .SetLoops(2, LoopType.Yoyo)

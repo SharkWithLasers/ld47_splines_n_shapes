@@ -1,4 +1,5 @@
-﻿using KammBase;
+﻿using DG.Tweening;
+using KammBase;
 using ScriptableObjectArchitecture;
 using Shapes;
 using System;
@@ -12,6 +13,13 @@ public class BSplineDrawer : MonoBehaviour
     [SerializeField] private int numSamplePointsPerCurve = 10;
 
     [SerializeField] private Polyline polyLine;
+
+    [SerializeField] private float initPLThickness;
+
+    [SerializeField] private float onPlayerHitPLThickness;
+
+    [SerializeField] private float onPlayerHitTweenTime;
+
     private int numTotalPoints;
 
     [SerializeField] private List<Vector2> sPoints;
@@ -30,11 +38,12 @@ public class BSplineDrawer : MonoBehaviour
 
     private Option<int> curveRegenStartOpt = Option<int>.None;
     private Option<int> sPointRegenStartOpt = Option<int>.None;
+    private bool currentlyThickening;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-
+        polyLine.Thickness = initPLThickness;
     }
 
     private void GeneratePolyline()
@@ -248,5 +257,25 @@ public class BSplineDrawer : MonoBehaviour
                 + localT * localT * localT * pFinal;
 
         return point;
+    }
+
+    public void OnPlayerHitTarget()
+    {
+        if (currentlyThickening)
+        {
+            return;
+        }
+
+        currentlyThickening = true;
+
+        polyLine.Thickness = initPLThickness;
+        DOTween.To(
+                () => polyLine.Thickness,
+                x => polyLine.Thickness = x,
+                onPlayerHitPLThickness,
+                onPlayerHitTweenTime)
+            .SetLoops(2, LoopType.Yoyo)
+            .SetEase(Ease.OutQuad)
+            .OnComplete(() => currentlyThickening = false);
     }
 }

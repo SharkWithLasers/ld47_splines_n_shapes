@@ -97,5 +97,7 @@ public class PlayerMover : MonoBehaviour
 
             // in a valid loop
         }
+
+        playerRenderer.OnPlayerHitTarget();
     }
 }
