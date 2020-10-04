@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KammBase;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +10,14 @@ public class SFXManager : MonoBehaviour
     [SerializeField] private AudioSource aSrcCpMouseDown;
     [SerializeField] private AudioSource aSrcCpMouseUp;
 
+    [SerializeField] private AudioSource aSrcLoopComplete;
+
     [SerializeField] private AudioClip cpMouseClip;
+
+    [SerializeField] private AudioClip loopValidClip;
+
+    [SerializeField] private AudioClip loopInvalidClip;
+
 
     //ugh
     [SerializeField] private BSplinePointGenerator bSplinePointGenerator;
@@ -73,7 +81,10 @@ public class SFXManager : MonoBehaviour
         
         if (cpSemitones[idxToUse] == prevSemitoneDiff)
         {
-            idxToUse = (idxToUse + 1) % cpSemitones.Count;
+            var idxDiff = UnityEngine.Random.value > 0.5f ? 1 : -1;
+
+            idxToUse = MathUtil.mod(idxToUse + idxDiff, cpSemitones.Count);
+                //(idxToUse + 1) % cpSemitones.Count;
         }
 
         return cpSemitones[idxToUse];
@@ -99,5 +110,19 @@ public class SFXManager : MonoBehaviour
                 return cpFivePointSemis[index % cpFivePointSemis.Count] + offset;
         }
         */
+    }
+
+    public void PlayLoopValidAt(int semiToneDiff)
+    {
+        aSrcLoopComplete.pitch = Mathf.Pow(1.05946f, semiToneDiff);
+
+        aSrcLoopComplete.PlayOneShot(loopValidClip);
+    }
+
+    public void PlayEnoughLoopsPassed()
+    {
+        aSrcLoopComplete.pitch = Mathf.Pow(1.05946f, 0);
+
+        aSrcLoopComplete.PlayOneShot(loopInvalidClip);
     }
 }

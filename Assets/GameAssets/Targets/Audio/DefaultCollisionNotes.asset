@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c96b5b85df0926844a0a17b7e29e4532, type: 3}
+  m_Name: DefaultCollisionNotes
+  m_EditorClassIdentifier: 
+  oneTargetSemis: 0000000004000000
+  twoTargetSemis: 000000000200000007000000
+  threeTargetSemis: 00000000040000000700000009000000
+  fourTargetSemis: 000000000200000004000000070000000b000000
+  fiveTargetSemis: 000000000200000004000000070000000b0000000e000000
+  sixTargetSemis: 000000000200000004000000070000000b0000000c00000010000000

@@ -13,7 +13,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Player
   - 
   - 
   - 
@@ -43,6 +43,12 @@ TagManager:
     locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Targets
+    uniqueID: 935161195
+    locked: 0
+  - name: ControlPoints
+    uniqueID: 105744405
     locked: 0
   - name: Player
     uniqueID: 4110556255
