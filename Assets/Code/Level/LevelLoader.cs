@@ -71,8 +71,6 @@ public class LevelLoader : MonoBehaviour
 
         var curLevel = levels[curLevelIdx];
 
-        Debug.Log($"loading {curLevel}");
-
         // PART 1 control points 
         bsPointGen.UpdateControlPointCount(curLevel.NumControlPoints);
 
