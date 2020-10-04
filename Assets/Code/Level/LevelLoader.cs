@@ -23,6 +23,21 @@ public class LevelLoader : MonoBehaviour
     [SerializeField]
     private SFXManager sfxManager;
 
+    [SerializeField]
+    private BSplinePointGenerator bsPointGen;
+
+    [SerializeField]
+    private GameEvent levelLoadCompletedEvent;
+
+    [SerializeField]
+    private GameEvent levelCompletedEvent;
+
+    [SerializeField]
+    private GameEvent shrinkPlayerAndSplineEvent;
+
+    [SerializeField]
+    private GameEvent incorrectHitEvent;
+
     private int curLevelIdx;
 
     private HashSet<int> targetsHitProperly = new HashSet<int>();
@@ -31,24 +46,54 @@ public class LevelLoader : MonoBehaviour
     private int targetsHitProperlyCount;
 
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
         // DO some game loaded shit
 
         // Load Level 0
         curLevelIdx = 0;
-        LoadLevel(curLevelIdx);
+        StartCoroutine(ChillThen(1f, BeginLoadLevel));
         
     }
 
-    private void LoadLevel(int idx)
+    private IEnumerator ChillThen(float secs, Action a)
     {
-        if (idx < 0 || idx >= levels.Count)
+        yield return new WaitForSeconds(secs);
+        a.Invoke();
+    }
+
+    private void BeginLoadLevel()
+    {
+        if (curLevelIdx < 0 || curLevelIdx >= levels.Count)
         {
             throw new Exception("da fuck u fuck why u fuckin do dat");
         }
 
-        var curLevel = levels[idx];
+        var curLevel = levels[curLevelIdx];
+
+
+
+        // PART 1 control points 
+        bsPointGen.UpdateControlPointCount(curLevel.NumControlPoints);
+
+        // no need to update spline...so we can just reveal it
+
+    }
+
+    // ugh I can't imagine someone else looking at this would be able to step through
+    // this weird flow
+    public void OnSplineThickened()
+    {
+        StartCoroutine(CreateTargets());
+    }
+
+    private IEnumerator CreateTargets()
+    {
+        var curLevel = levels[curLevelIdx];
+
+        // PART 3 ... now we gotta create the targets
+        yield return new WaitForSeconds(.25f);
+
 
         for (var i = 0; i < curLevel.TargetPositions.Count; i++)
         {
@@ -57,66 +102,21 @@ public class LevelLoader : MonoBehaviour
             var targetGO = Instantiate(targetPrefab, targetPos, Quaternion.identity);
 
             targetGO.Construct(i, curLevel.TargetPositions.Count, curLevel);
+
+            yield return new WaitForSeconds(1f);
+
             curLevelTargets.Add(targetGO);
         }
 
         _curExpectedTargetIdx = 0;
-    }
-
-    private void ClearCurrentLevel()
-    {
-
-        for (var i = curLevelTargets.Count-1; i >= 0; i--)
-        {
-            curLevelTargets[i].BeginDeathSentence();
-        }
-
-        curLevelTargets = new List<Target>();
-        targetsHitProperly = new HashSet<int>();
-        targetsHitProperlyCount = 0;
+        levelLoadCompletedEvent.Raise();
+        // level load completed!!!
     }
 
     // Update is called once per frame
     void Update()
     {
         
-    }
-
-    public void OnPlayerLooped()
-    {
-        return;
-
-        var loopValid = targetsHitProperly.Count == curLevelTargets.Count;
-
-        if (loopValid)
-        {
-            var semiToneDiff = targetCollisionNotes.GetSemiDiffForLoopValid(curLevelTargets.Count);
-
-            sfxManager.PlayLoopValidAt(semiToneDiff);
-
-
-            // clear current level
-            ClearCurrentLevel();
-
-            // load next level (modulo tee hee)
-
-            curLevelIdx = (curLevelIdx + 1) % levels.Count;
-
-            LoadLevel(curLevelIdx);
-        }
-        else
-        {
-
-            sfxManager.PlayEnoughLoopsPassed();
-
-            foreach (var target in curLevelTargets)
-            {
-                target.OnPlayerLoopedIncomplete();
-            }
-
-            _curExpectedTargetIdx = 0;
-            targetsHitProperly = new HashSet<int>();
-        }
     }
 
     public void OnEnoughLoopsPassed()
@@ -158,15 +158,7 @@ public class LevelLoader : MonoBehaviour
 
                 sfxManager.PlayLoopValidAt(semiToneDiff);
 
-
-                // clear current level
-                ClearCurrentLevel();
-
-                // load next level (modulo tee hee)
-
-                curLevelIdx = (curLevelIdx + 1) % levels.Count;
-
-                LoadLevel(curLevelIdx);
+                StartCoroutine(BeginLevelCompleteFlow());
             }
             else
             {
@@ -205,9 +197,49 @@ public class LevelLoader : MonoBehaviour
             // mark invalid...? that's it?
             else
             {
+                incorrectHitEvent.Raise();
 
                 target.OnIncorrectlyHit();
             }
         }
+    }
+
+    private IEnumerator BeginLevelCompleteFlow()
+    {
+        for (var i = curLevelTargets.Count - 1; i >= 0; i--)
+        {
+            // turn off colliders
+            curLevelTargets[i].OnLevelCompleted();
+        }
+
+
+        levelCompletedEvent.Raise();
+
+        yield return new WaitForSeconds(0.75f);
+
+        for (var i = curLevelTargets.Count - 1; i >= 0; i--)
+        {
+            curLevelTargets[i].BeginDeathSentence();
+        }
+
+        // modulo tee hee funny joke
+        var nextLevelIdx = (curLevelIdx + 1) % levels.Count;
+
+        var curLevel = levels[curLevelIdx];
+        var nextLevel = levels[nextLevelIdx];
+
+        if (curLevel.NumControlPoints != nextLevel.NumControlPoints)
+        {
+            shrinkPlayerAndSplineEvent.Raise();
+        }
+
+        yield return new WaitForSeconds(1f);
+
+        curLevelTargets = new List<Target>();
+        targetsHitProperly = new HashSet<int>();
+        targetsHitProperlyCount = 0;
+
+        curLevelIdx = nextLevelIdx;
+        BeginLoadLevel();
     }
 }

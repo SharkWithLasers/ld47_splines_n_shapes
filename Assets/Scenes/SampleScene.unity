@@ -133,6 +133,8 @@ GameObject:
   - component: {fileID: 141638127}
   - component: {fileID: 141638129}
   - component: {fileID: 141638128}
+  - component: {fileID: 141638130}
+  - component: {fileID: 141638131}
   m_Layer: 0
   m_Name: SFXManager
   m_TagString: Untagged
@@ -241,6 +243,70 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   _debugValue: 0
+--- !u!114 &141638130
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 141638125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 094217878ac039741aa004dbc1f81b20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _showDebugFields: 0
+  _enableGizmoDebugging: 1
+  _debugColor: {r: 0, g: 1, b: 1, a: 1}
+  _previouslyRegisteredEvent: {fileID: 0}
+  _event: {fileID: 11400000, guid: 6a644d11f0978434ca156fba295c4e11, type: 2}
+  _response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 141638127}
+        m_MethodName: OnCpMouseDown
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  _debugValue: 0
+--- !u!114 &141638131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 141638125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5758ca93461aeeb4589456a052b07d74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _showDebugFields: 0
+  _enableGizmoDebugging: 1
+  _debugColor: {r: 0, g: 1, b: 1, a: 1}
+  _previouslyRegisteredEvent: {fileID: 11400000, guid: 1437c2c864033aa4a94e88fbf6662a1f,
+    type: 2}
+  _event: {fileID: 11400000, guid: 1437c2c864033aa4a94e88fbf6662a1f, type: 2}
+  _response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 141638127}
+        m_MethodName: OnCpMouseDown
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &200635315
 GameObject:
   m_ObjectHideFlags: 0
@@ -463,10 +529,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a4f4379bf1ca8340a9a3f25ba48e01f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numControlPoints: 3
+  sampleNumControlPoints: 3
   initCircleSize: 2
   bSplinePointPrefab: {fileID: 7131392085628968129, guid: 824499dc97508cd44a3d8efe514bc4f9,
     type: 3}
+  noGenerationNecessaryEvent: {fileID: 11400000, guid: 16ef9e35bfc103f40982dd0da9907feb,
+    type: 2}
   bSplinePointsGeneratedEvent: {fileID: 11400000, guid: b9b0cb16d9c6c0e40960383bacdf2b93,
     type: 2}
   colorPalette: {fileID: 11400000, guid: 95d49e5466f2632468738b321e849890, type: 2}
@@ -582,9 +650,10 @@ GameObject:
   m_Component:
   - component: {fileID: 617928073}
   - component: {fileID: 617928072}
-  - component: {fileID: 617928075}
   - component: {fileID: 617928074}
   - component: {fileID: 617928076}
+  - component: {fileID: 617928075}
+  - component: {fileID: 617928077}
   m_Layer: 0
   m_Name: LevelLoader
   m_TagString: Untagged
@@ -605,9 +674,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levels:
+  - {fileID: 11400000, guid: 25f2d437a03df1245bf295ca9ea46996, type: 2}
   - {fileID: 11400000, guid: 40723f919f19181438279fd98a6d1424, type: 2}
   - {fileID: 11400000, guid: fc15cc9c14a291848a39414c9b939344, type: 2}
-  - {fileID: 11400000, guid: 25f2d437a03df1245bf295ca9ea46996, type: 2}
   targetPrefab: {fileID: 6222042957536761583, guid: 3b9ea859f980be146a6043d24a41be73,
     type: 3}
   loopValidationEvent: {fileID: 11400000, guid: 42479254b1d8a844694b7c1f5819c263,
@@ -615,6 +684,14 @@ MonoBehaviour:
   targetCollisionNotes: {fileID: 11400000, guid: c443dbcf350845c4f8ef47fc180842b8,
     type: 2}
   sfxManager: {fileID: 141638127}
+  bsPointGen: {fileID: 335743522}
+  levelLoadCompletedEvent: {fileID: 11400000, guid: 1d0a2519fad5f6a45bb90e730d775f17,
+    type: 2}
+  levelCompletedEvent: {fileID: 11400000, guid: c7f0c8c33055ee94694b994f58001528,
+    type: 2}
+  shrinkPlayerAndSplineEvent: {fileID: 11400000, guid: 5bdf87cb0bc01aa468d4b5387c303f50,
+    type: 2}
+  incorrectHitEvent: {fileID: 11400000, guid: 220321154faa98a42a857e23609d7e53, type: 2}
 --- !u!4 &617928073
 Transform:
   m_ObjectHideFlags: 0
@@ -676,14 +753,14 @@ MonoBehaviour:
   _showDebugFields: 0
   _enableGizmoDebugging: 1
   _debugColor: {r: 0, g: 1, b: 1, a: 1}
-  _previouslyRegisteredEvent: {fileID: 11400000, guid: 516f89381d6d4664aa62d5c968d3aa1f,
+  _previouslyRegisteredEvent: {fileID: 11400000, guid: 413ce3e0d11fd804480ec268af92b38a,
     type: 2}
-  _event: {fileID: 11400000, guid: 516f89381d6d4664aa62d5c968d3aa1f, type: 2}
+  _event: {fileID: 11400000, guid: 413ce3e0d11fd804480ec268af92b38a, type: 2}
   _response:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 617928072}
-        m_MethodName: OnPlayerLooped
+        m_MethodName: OnSplineThickened
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -716,6 +793,38 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 617928072}
         m_MethodName: OnEnoughLoopsPassed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &617928077
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 617928071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5758ca93461aeeb4589456a052b07d74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _showDebugFields: 0
+  _enableGizmoDebugging: 1
+  _debugColor: {r: 0, g: 1, b: 1, a: 1}
+  _previouslyRegisteredEvent: {fileID: 11400000, guid: 6f0d151fd519b194589a117737bc04f7,
+    type: 2}
+  _event: {fileID: 11400000, guid: 6f0d151fd519b194589a117737bc04f7, type: 2}
+  _response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 617928072}
+        m_MethodName: OnSplineThickened
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1119,6 +1228,8 @@ GameObject:
   - component: {fileID: 1722304866}
   - component: {fileID: 1722304867}
   - component: {fileID: 1722304868}
+  - component: {fileID: 1722304869}
+  - component: {fileID: 1722304870}
   m_Layer: 8
   m_Name: Player
   m_TagString: Untagged
@@ -1155,8 +1266,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerRenderer: {fileID: 200635317}
   bSplineDrawer: {fileID: 2104354719}
-  tMoveSpeed: 0.4
-  playerLoopedEvent: {fileID: 11400000, guid: 516f89381d6d4664aa62d5c968d3aa1f, type: 2}
+  tRegMoveSpeed: 0.3
+  tLoopMoveSpeed: 0.6
   enoughLoopItersPassedEvent: {fileID: 11400000, guid: 55ee796f06a3695439255de9d528e5a6,
     type: 2}
 --- !u!114 &1722304866
@@ -1239,6 +1350,70 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   _debugValue: 0
+--- !u!114 &1722304869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1722304863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5758ca93461aeeb4589456a052b07d74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _showDebugFields: 0
+  _enableGizmoDebugging: 1
+  _debugColor: {r: 0, g: 1, b: 1, a: 1}
+  _previouslyRegisteredEvent: {fileID: 11400000, guid: c7f0c8c33055ee94694b994f58001528,
+    type: 2}
+  _event: {fileID: 11400000, guid: c7f0c8c33055ee94694b994f58001528, type: 2}
+  _response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1722304865}
+        m_MethodName: OnLevelCompleted
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1722304870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1722304863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5758ca93461aeeb4589456a052b07d74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _showDebugFields: 0
+  _enableGizmoDebugging: 1
+  _debugColor: {r: 0, g: 1, b: 1, a: 1}
+  _previouslyRegisteredEvent: {fileID: 11400000, guid: 220321154faa98a42a857e23609d7e53,
+    type: 2}
+  _event: {fileID: 11400000, guid: 220321154faa98a42a857e23609d7e53, type: 2}
+  _response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1722304865}
+        m_MethodName: OnIncorrectTarget
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1784597775
 GameObject:
   m_ObjectHideFlags: 0
@@ -1521,7 +1696,7 @@ Transform:
   m_GameObject: {fileID: 1977700743}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 200635316}
   m_RootOrder: 1
@@ -1642,7 +1817,7 @@ Transform:
   m_GameObject: {fileID: 1999624026}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 200635316}
   m_RootOrder: 0
@@ -1904,6 +2079,8 @@ GameObject:
   - component: {fileID: 2104354722}
   - component: {fileID: 2104354721}
   - component: {fileID: 2104354723}
+  - component: {fileID: 2104354724}
+  - component: {fileID: 2104354725}
   m_Layer: 0
   m_Name: BSplineDrawer
   m_TagString: Untagged
@@ -1938,6 +2115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81b6b7c92b6c50e4381dbe13e8f39b67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerMover: {fileID: 1722304865}
   numSamplePointsPerCurve: 20
   polyLine: {fileID: 2094502003}
   initPLThickness: 0.0625
@@ -1947,6 +2125,12 @@ MonoBehaviour:
   pPoints: []
   bsPointGen: {fileID: 335743522}
   bSplineCompletedEvent: {fileID: 11400000, guid: 95302f6517f6d5f418c62eb93654e62a,
+    type: 2}
+  splineThickeningStartedEvent: {fileID: 11400000, guid: 1437c2c864033aa4a94e88fbf6662a1f,
+    type: 2}
+  splineThickeningEndedEvent: {fileID: 11400000, guid: 413ce3e0d11fd804480ec268af92b38a,
+    type: 2}
+  splineAlreadyFineEvent: {fileID: 11400000, guid: 6f0d151fd519b194589a117737bc04f7,
     type: 2}
   startingTrailOpacity: 0.75
   colorPalette: {fileID: 11400000, guid: 95d49e5466f2632468738b321e849890, type: 2}
@@ -2078,3 +2262,67 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   _debugValue: 0
+--- !u!114 &2104354724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2104354717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5758ca93461aeeb4589456a052b07d74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _showDebugFields: 0
+  _enableGizmoDebugging: 1
+  _debugColor: {r: 0, g: 1, b: 1, a: 1}
+  _previouslyRegisteredEvent: {fileID: 11400000, guid: 16ef9e35bfc103f40982dd0da9907feb,
+    type: 2}
+  _event: {fileID: 11400000, guid: 16ef9e35bfc103f40982dd0da9907feb, type: 2}
+  _response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2104354719}
+        m_MethodName: OnNoUpdateNecessary
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &2104354725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2104354717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5758ca93461aeeb4589456a052b07d74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _showDebugFields: 0
+  _enableGizmoDebugging: 1
+  _debugColor: {r: 0, g: 1, b: 1, a: 1}
+  _previouslyRegisteredEvent: {fileID: 11400000, guid: 5bdf87cb0bc01aa468d4b5387c303f50,
+    type: 2}
+  _event: {fileID: 11400000, guid: 5bdf87cb0bc01aa468d4b5387c303f50, type: 2}
+  _response:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2104354719}
+        m_MethodName: MakePlayerAndPolySkinny
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2

@@ -94,9 +94,9 @@ public class BSplinePointRenderer : MonoBehaviour
         backgroundAuraDisc.Radius = initialBGAuraRadius;
         backgroundAuraDisc.Color = _initialBackgroundDiscColor;
 
-        // should do this after init stuff
-        var chillTime = 1f;
-        StartCoroutine(ChillThen(chillTime, SetMouseOutAura));
+        // TODO, clickable, aura stuff... 
+        //var chillTime = 1f;
+        //StartCoroutine(ChillThen(chillTime, SetMouseOutAura));
     }
 
     private void SetMouseOutAura()
@@ -249,5 +249,13 @@ public class BSplinePointRenderer : MonoBehaviour
             x => discInner.Radius = x,
             toThis,
             tweenTime).SetEase(ease);
+    }
+
+    public void OnConstructed()
+    {
+        transform.localScale = Vector3.one * .1f;
+
+        transform
+            .DOScale(1, 0.75f);
     }
 }

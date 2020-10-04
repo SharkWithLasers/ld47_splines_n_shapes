@@ -15,8 +15,11 @@ public class BSplinePoint : MonoBehaviour
 
     [SerializeField] private IntGameEvent bsPointIDragEnded;
 
+    [SerializeField] private IntGameEvent onBsPointInstantiatedEvent;
+
     [SerializeField] private BSplinePointRenderer splinePointRenderer;
     private bool withinCollider;
+    private Collider2D _collider2D;
 
     // Start is called before the first frame update
     void Start()
@@ -29,7 +32,18 @@ public class BSplinePoint : MonoBehaviour
         Index = index;
 
         splinePointRenderer.SetColor(color);
+
+        // tween stuff
+        splinePointRenderer.OnConstructed();
+
+        _collider2D = GetComponent<Collider2D>();
+
+        _collider2D.enabled = false;
+
+        onBsPointInstantiatedEvent.Raise(Index);
     }
+
+    // on level started then hit em with the collider n stuff
 
     private void OnMouseEnter()
     {
@@ -91,5 +105,11 @@ public class BSplinePoint : MonoBehaviour
     public void OnPlayerHitTarget()
     {
         splinePointRenderer.OnPlayerHitTarget();
+    }
+
+    public void OnLevelLoadComplete()
+    {
+        _collider2D.enabled = true;
+        splinePointRenderer.MouseExitHappened();
     }
 }
