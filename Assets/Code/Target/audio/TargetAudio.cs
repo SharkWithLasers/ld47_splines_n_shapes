@@ -29,6 +29,7 @@ public class TargetAudio : MonoBehaviour
             currentlyPlayClip = properCollisionClip;
 
             aSrc1.pitch = Mathf.Pow(1.05946f, semiDiff);
+            aSrc1.volume = .5f;
             aSrc1.PlayOneShot(currentlyPlayClip);
 
         }
@@ -38,7 +39,8 @@ public class TargetAudio : MonoBehaviour
             currentlyPlayClip = improperCollisionClip;
 
             // Eflat at base... so maybe M7?
-            aSrc1.pitch = Mathf.Pow(1.05946f, 0);
+            aSrc1.pitch = 1; //Random.Range(.95f, 1.05f);
+            aSrc1.volume = .25f;
             aSrc1.PlayOneShot(currentlyPlayClip);
         }
 
