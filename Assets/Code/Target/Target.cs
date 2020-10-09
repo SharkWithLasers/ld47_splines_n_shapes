@@ -20,6 +20,7 @@ public class Target : MonoBehaviour
     [SerializeField] private float secondsBetweenCollisions = 1f;
 
     private int _index;
+    private PlayerMover _playerMover;
     private int _totalNumForLevel;
     private LevelData _ld;
     private bool _destroyBecauseOfDeath;
@@ -57,10 +58,13 @@ public class Target : MonoBehaviour
         _collisionBuffer = new List<Collider2D>();
     }
 
-    public void Construct(int index, int totalNumForLevel, LevelData ld)
+    public void Construct(int index, int totalNumForLevel, LevelData ld, PlayerMover playerMover)
     {
         // ld is for play mode saving only in edit mode
         _index = index;
+
+        //the lengths I go through to handle low fps edge case...hmmm
+        _playerMover = playerMover;
 
         _totalNumForLevel = totalNumForLevel;
 
@@ -105,10 +109,49 @@ public class Target : MonoBehaviour
     {
         var numCollisions = _collider2D.OverlapCollider(contactFilter2D, _collisionBuffer);
 
-        if (numCollisions > 0)
+        if (numCollisions > 0 || CollisionCheckForLowFps())
         {
             CollisionFlow();
         }
+
+    }
+
+    private bool CollisionCheckForLowFps()
+    {
+        var numTailPoints = _playerMover.NumTailPoints;
+
+        var playerRadiusToUse = _playerMover.Radius;
+        if (numTailPoints == 0)
+        {
+            return false;
+        }
+
+        for (var i=0; i < numTailPoints; i++)
+        {
+            var interpPointOpt = _playerMover.GetTailPointAt(i);
+            if (!interpPointOpt.HasValue)
+            {
+                //this shouldn't happen but w/e
+                continue;
+            }
+
+            var interpPoint = interpPointOpt.Value;
+
+            if (_collider2D.OverlapPoint(interpPoint))
+            {
+                return true;
+            }
+
+            var dirToTarget = ((Vector2)transform.position - interpPoint).normalized;
+
+            var outerPoint = interpPoint + dirToTarget * playerRadiusToUse;
+            if (_collider2D.OverlapPoint(outerPoint))
+            {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private void CollisionFlow()
@@ -230,6 +273,8 @@ public class Target : MonoBehaviour
 
     private void OnDestroy()
     {
+        return;
+
         TryOverwriteLevelData();
     }
 

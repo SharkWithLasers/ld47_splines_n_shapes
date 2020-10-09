@@ -26,7 +26,8 @@ public class BSplineDrawer : MonoBehaviour
 
     [SerializeField] private List<Vector2> sPoints;
     [SerializeField] private List<Vector2> pPoints;
-
+    private List<Vector2> prevFrameSPoints;
+    private List<Vector2> prevFramePPoints;
     [SerializeField] private BSplinePointGenerator bsPointGen;
 
     [SerializeField] private GameEvent bSplineCompletedEvent;
@@ -54,6 +55,13 @@ public class BSplineDrawer : MonoBehaviour
     void Awake()
     {
         polyLine.Thickness = initPLThickness;
+
+        sPoints = new List<Vector2>();
+        pPoints = new List<Vector2>();
+
+        prevFrameSPoints = new List<Vector2>();
+        prevFramePPoints = new List<Vector2>();
+
     }
 
     private void GeneratePolyline()
@@ -77,6 +85,8 @@ public class BSplineDrawer : MonoBehaviour
         var p0 = i == 0 ? pPoints.Count - 1 : 2 * i - 1;
         var p1 = 2 * i;
 
+        prevFrameSPoints[i] = sPoints[i];
+
         sPoints[i] = Vector2.Lerp(pPoints[p0], pPoints[p1], 0.5f);
     }
 
@@ -94,6 +104,10 @@ public class BSplineDrawer : MonoBehaviour
         var bNext = i == bsPoints.Count - 1
             ? bsPoints[0].transform.position
             : bsPoints[i + 1].transform.position;
+
+        prevFramePPoints[2 * i] = pPoints[2 * i];
+        prevFramePPoints[2 * i + 1] = pPoints[2 * i + 1];
+
 
         pPoints[2 * i] = Vector2.Lerp(bCur, bNext, 1f / 3);
         pPoints[2 * i + 1] = Vector2.Lerp(bCur, bNext, 2f / 3);
@@ -150,11 +164,18 @@ public class BSplineDrawer : MonoBehaviour
 
         sPoints = new List<Vector2>();
         pPoints = new List<Vector2>();
+
+        prevFrameSPoints = new List<Vector2>();
+        prevFramePPoints = new List<Vector2>();
         foreach (var _ in bSplinePoints)
         {
             sPoints.Add(Vector2.zero);
             pPoints.Add(Vector2.zero);
             pPoints.Add(Vector2.zero);
+
+            prevFrameSPoints.Add(Vector2.zero);
+            prevFramePPoints.Add(Vector2.zero);
+            prevFramePPoints.Add(Vector2.zero);
         }
 
         GeneratePPoints(bSplinePoints);
@@ -169,9 +190,33 @@ public class BSplineDrawer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        UpdatePrevFramePoints();
+
+
         if (pointBeingDragged)
         {
             UpdatePointRange();
+        }
+
+
+    }
+
+    private void UpdatePrevFramePoints()
+    {
+        if (pPoints.Count != prevFramePPoints.Count
+            || sPoints.Count != prevFrameSPoints.Count)
+        {
+            throw new Exception("prevframe and curframe point lists are unsynced wtf");
+        }
+
+        for (var i = 0; i < pPoints.Count; i++)
+        {
+            prevFramePPoints[i] = pPoints[i];
+        }
+
+        for (var i = 0; i < sPoints.Count; i++)
+        {
+            prevFrameSPoints[i] = sPoints[i];
         }
     }
 
@@ -241,6 +286,47 @@ public class BSplineDrawer : MonoBehaviour
             polyLine.SetPointPosition(numTotalPoints - 1, pFinal);
         }
     }
+
+    private Vector2 GetPointAtTForSpline(
+        float t, List<Vector2> sPointsToUse, List<Vector2> pPointsToUse)
+    {
+        t = Mathf.Clamp(t, 0, 1);
+
+        var curveToUse = (int)(bsPointGen.bSplinePoints.Count * t);
+
+        var curveTStart = (curveToUse + 0f) / bsPointGen.bSplinePoints.Count;
+        var curveTEnd = (curveToUse + 1f) / bsPointGen.bSplinePoints.Count;
+
+        var localT = (t - curveTStart) / (curveTEnd - curveTStart);
+
+        // duplicated code... consider not doing that...
+        var pInitial = sPointsToUse[curveToUse];
+        var pFinal = curveToUse == sPointsToUse.Count - 1
+            ? sPointsToUse[0]
+            : sPointsToUse[curveToUse + 1];
+
+        var pControl1 = pPointsToUse[2 * curveToUse];
+        var pControl2 = pPointsToUse[2 * curveToUse + 1];
+
+        var point = Mathf.Pow(1 - localT, 3) * pInitial
+                + 3 * Mathf.Pow(1 - localT, 2) * localT * pControl1
+                + 3 * (1 - localT) * localT * localT * pControl2
+                + localT * localT * localT * pFinal;
+
+        return point;
+    }
+
+    public Vector2 GetPointAtTPrevFrame(float t)
+    {
+        return GetPointAtTForSpline(t, prevFrameSPoints, prevFramePPoints);
+    }
+
+    public Vector2 GetPointAtT(float t)
+    {
+        return GetPointAtTForSpline(t, sPoints, pPoints);
+    }
+
+    /*
     public Vector2 GetPointAtT(float t)
     {
         t = Mathf.Clamp(t, 0, 1);
@@ -269,6 +355,7 @@ public class BSplineDrawer : MonoBehaviour
 
         return point;
     }
+    */
 
     public void OnPlayerHitTarget()
     {
