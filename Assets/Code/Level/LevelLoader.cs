@@ -15,6 +15,9 @@ public class LevelLoader : MonoBehaviour
     private Target targetPrefab;
 
     [SerializeField]
+    private PlayerMover player;
+
+    [SerializeField]
     private BoolGameEvent loopValidationEvent;
 
     [SerializeField]
@@ -103,7 +106,7 @@ public class LevelLoader : MonoBehaviour
             // construct hash set of targets that got hit?
             var targetGO = Instantiate(targetPrefab, targetPos, Quaternion.identity);
 
-            targetGO.Construct(i, curLevel.TargetPositions.Count, curLevel);
+            targetGO.Construct(i, curLevel.TargetPositions.Count, curLevel, player);
 
             yield return new WaitForSeconds(1f);
 

@@ -15,16 +15,28 @@ public class PlayerMover : MonoBehaviour
 
     [SerializeField] private float tLoopMoveSpeed;
 
+    [SerializeField] private uint colliderTailInterpPoints;
+
     private float speedToUse;
 
     [SerializeField] private GameEvent enoughLoopItersPassedEvent;
-
+    private float _prevT;
     private float curT;
 
     private bool isMoving;
     private float triangleT;
     private int numLoopItersSinceTri;
     private bool currentlyInTLoop;
+    private List<Vector2> _tailPoints;
+
+    public int NumTailPoints => _tailPoints == null ? 0 : _tailPoints.Count;
+
+    public float Radius { get; private set; }
+
+    private void Awake()
+    {
+        Radius = GetComponent<CircleCollider2D>().radius;
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -32,6 +44,13 @@ public class PlayerMover : MonoBehaviour
         speedToUse = tRegMoveSpeed;
 
         playerRenderer.SetColorForT(0);
+
+        _tailPoints = new List<Vector2>();
+
+        for (var i = 0; i < colliderTailInterpPoints + 1; i++)
+        {
+            _tailPoints.Add(Vector2.zero);
+        }
     }
 
     // Update is called once per frame
@@ -42,17 +61,46 @@ public class PlayerMover : MonoBehaviour
             return;
         }
 
-        var prevT = curT;
-        curT = (prevT + speedToUse * Time.deltaTime) % 1;
+        _prevT = curT;
+        curT = (_prevT + speedToUse * Time.deltaTime) % 1;
         
         if (currentlyInTLoop)
         {
-            CheckTriLoop(prevT, curT);
+            CheckTriLoop(_prevT, curT);
         }
-
 
         playerRenderer.SetColorForT(curT);
         transform.position = bSplineDrawer.GetPointAtT(curT);
+
+        UpdateInterpTail();
+    }
+
+    private void UpdateInterpTail()
+    {
+        // not sure if this handles multiple revolutions in a single frame
+        var tDiff = (curT >= _prevT)
+            ? curT - _prevT
+            : (1 - curT) + _prevT;
+
+        //perhaps this should be an SO or something
+        var interpAmtForT = (tDiff) / (_tailPoints.Count);
+
+        for (var i=0; i < _tailPoints.Count; i++)
+        {
+            var t = (_prevT + interpAmtForT * i) % 1;
+
+            _tailPoints[i] = bSplineDrawer.GetPointAtTPrevFrame(t);
+        }
+    }
+
+    public Option<Vector2> GetTailPointAt(int idx)
+    {
+        if (idx < 0 || _tailPoints == null || idx >= _tailPoints.Count)
+        {
+            return Option<Vector2>.None;
+        }
+
+        return _tailPoints[idx];
     }
 
     private void CheckTriLoop(float prevT, float curT)

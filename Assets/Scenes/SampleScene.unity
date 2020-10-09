@@ -725,6 +725,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e8a481d4fbc37bd4881616e8bea71ee8, type: 2}
   targetPrefab: {fileID: 6222042957536761583, guid: 3b9ea859f980be146a6043d24a41be73,
     type: 3}
+  player: {fileID: 1722304865}
   loopValidationEvent: {fileID: 11400000, guid: 42479254b1d8a844694b7c1f5819c263,
     type: 2}
   targetCollisionNotes: {fileID: 11400000, guid: c443dbcf350845c4f8ef47fc180842b8,
@@ -1230,6 +1231,7 @@ MonoBehaviour:
   bSplineDrawer: {fileID: 2104354719}
   tRegMoveSpeed: 0.3
   tLoopMoveSpeed: 0.6
+  colliderTailInterpPoints: 3
   enoughLoopItersPassedEvent: {fileID: 11400000, guid: 55ee796f06a3695439255de9d528e5a6,
     type: 2}
 --- !u!114 &1722304866
