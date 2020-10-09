@@ -171,22 +171,6 @@ public class PlayerMover : MonoBehaviour
         speedToUse = tRegMoveSpeed;
     }
 
-    public void DebugLogAllTailPointsAndPoint()
-    {
-        Debug.Log($"cur pos: {transform.position.ToString("F4")}");
-        if (_tailPointsAndT == null)
-        {
-            return;
-        }
-
-        for (var i = 0; i < _tailPointsAndT.Count; i++)
-        {
-            var (tp, t) = _tailPointsAndT[i];
-
-            Debug.Log($"tail pos i:{i} => {tp.ToString("F4")}...t: {t}");
-        }
-    }
-
     public void MakeSkinny(float secs)
     {
         isMoving = false;

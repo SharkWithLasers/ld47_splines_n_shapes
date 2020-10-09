@@ -139,11 +139,6 @@ public class Target : MonoBehaviour
 
             if (_collider2D.OverlapPoint(interpPoint))
             {
-                Debug.Log($"tail CENTER collision at i: {i}");
-                Debug.Log($"target:{transform.position.ToString("F4")}");
-                Debug.Log($"prevT: {_playerMover.DebugPrevT}. curT: {_playerMover.DebugCurT}");
-
-                _playerMover.DebugLogAllTailPointsAndPoint();
                 return true;
             }
 
@@ -152,13 +147,6 @@ public class Target : MonoBehaviour
             var outerPoint = interpPoint + dirToTarget * playerRadiusToUse;
             if (_collider2D.OverlapPoint(outerPoint))
             {
-                Debug.Log($"tail OUTER collision at i: {i}");
-                Debug.Log($"outerP: {outerPoint.ToString("F4")}");
-                Debug.Log($"target:{transform.position.ToString("F4")}");
-                Debug.Log($"prevT: {_playerMover.DebugPrevT}. curT: {_playerMover.DebugCurT}");
-               
-                _playerMover.DebugLogAllTailPointsAndPoint();
-
                 return true;
             }
         }
