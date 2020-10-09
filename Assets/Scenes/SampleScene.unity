@@ -1051,6 +1051,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7325bda34e4b98a44b32c6dc6f4cb4cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  frameRateTest: -1
 --- !u!1 &1286878055
 GameObject:
   m_ObjectHideFlags: 0

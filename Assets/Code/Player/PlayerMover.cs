@@ -27,11 +27,14 @@ public class PlayerMover : MonoBehaviour
     private float triangleT;
     private int numLoopItersSinceTri;
     private bool currentlyInTLoop;
-    private List<Vector2> _tailPoints;
+    private List<(Vector2, float)> _tailPointsAndT;
 
-    public int NumTailPoints => _tailPoints == null ? 0 : _tailPoints.Count;
+    public int NumTailPoints => _tailPointsAndT == null ? 0 : _tailPointsAndT.Count;
 
     public float Radius { get; private set; }
+
+    public float DebugPrevT => _prevT;
+    public float DebugCurT => curT;
 
     private void Awake()
     {
@@ -45,11 +48,11 @@ public class PlayerMover : MonoBehaviour
 
         playerRenderer.SetColorForT(0);
 
-        _tailPoints = new List<Vector2>();
+        _tailPointsAndT = new List<(Vector2, float)>();
 
         for (var i = 0; i < colliderTailInterpPoints + 1; i++)
         {
-            _tailPoints.Add(Vector2.zero);
+            _tailPointsAndT.Add((Vector2.zero, 0));
         }
     }
 
@@ -80,27 +83,27 @@ public class PlayerMover : MonoBehaviour
         // not sure if this handles multiple revolutions in a single frame
         var tDiff = (curT >= _prevT)
             ? curT - _prevT
-            : (1 - curT) + _prevT;
+            : (1 - _prevT) + curT;
 
         //perhaps this should be an SO or something
-        var interpAmtForT = (tDiff) / (_tailPoints.Count);
+        var interpAmtForT = tDiff / _tailPointsAndT.Count;
 
-        for (var i=0; i < _tailPoints.Count; i++)
+        for (var i=0; i < _tailPointsAndT.Count; i++)
         {
             var t = (_prevT + interpAmtForT * i) % 1;
 
-            _tailPoints[i] = bSplineDrawer.GetPointAtTPrevFrame(t);
+            _tailPointsAndT[i] = (bSplineDrawer.GetPointAtTPrevFrame(t), t);
         }
     }
 
     public Option<Vector2> GetTailPointAt(int idx)
     {
-        if (idx < 0 || _tailPoints == null || idx >= _tailPoints.Count)
+        if (idx < 0 || _tailPointsAndT == null || idx >= _tailPointsAndT.Count)
         {
             return Option<Vector2>.None;
         }
 
-        return _tailPoints[idx];
+        return _tailPointsAndT[idx].Item1;
     }
 
     private void CheckTriLoop(float prevT, float curT)
@@ -166,6 +169,22 @@ public class PlayerMover : MonoBehaviour
     {
         currentlyInTLoop = false;
         speedToUse = tRegMoveSpeed;
+    }
+
+    public void DebugLogAllTailPointsAndPoint()
+    {
+        Debug.Log($"cur pos: {transform.position.ToString("F4")}");
+        if (_tailPointsAndT == null)
+        {
+            return;
+        }
+
+        for (var i = 0; i < _tailPointsAndT.Count; i++)
+        {
+            var (tp, t) = _tailPointsAndT[i];
+
+            Debug.Log($"tail pos i:{i} => {tp.ToString("F4")}...t: {t}");
+        }
     }
 
     public void MakeSkinny(float secs)
