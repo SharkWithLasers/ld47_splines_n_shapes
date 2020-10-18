@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3590839438352508663}
   - component: {fileID: 1880767617804609597}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: TargetAudio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -62,7 +62,7 @@ GameObject:
   - component: {fileID: 8936761399697143084}
   - component: {fileID: 3454292120819777168}
   - component: {fileID: 664923236490095543}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PolygonAura
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 5252124902675948375}
   - component: {fileID: 5252124902675948374}
   - component: {fileID: 5252124902675948373}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: DiscInner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -301,7 +301,7 @@ GameObject:
   - component: {fileID: 5252124903824265272}
   - component: {fileID: 6222042957536761583}
   - component: {fileID: 4646654486596048704}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Target
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -414,7 +414,7 @@ GameObject:
   - component: {fileID: 5252124903943326640}
   - component: {fileID: 5252124903943326655}
   - component: {fileID: 5252124903943326654}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: RegularPolygon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -530,7 +530,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8829152640493591402}
   - component: {fileID: 6711650698920668855}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: TargetRender
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -589,7 +589,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4910331480949069658}
   - component: {fileID: 4284905518968087484}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: AudioSrc1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
